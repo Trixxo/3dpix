@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=2]
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 2
+emission_box_extents = Vector3( 1, 1, 1 )
+direction = Vector3( 0, 1, 0 )
+flatness = 0.97
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 1.0
+
+[sub_resource type="SpatialMaterial" id=4]
+resource_local_to_scene = true
+params_diffuse_mode = 4
+params_specular_mode = 3
+albedo_color = Color( 0.25098, 1, 0.0823529, 1 )
+roughness = 0.0
+
+[sub_resource type="PlaneMesh" id=2]
+material = SubResource( 4 )
+size = Vector2( 0.2, 0.2 )
+
+[sub_resource type="CubeMesh" id=3]
+
+[node name="Spatial" type="Particles"]
+process_material = SubResource( 1 )
+draw_pass_1 = SubResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+visible = false
+mesh = SubResource( 3 )
+material/0 = null
