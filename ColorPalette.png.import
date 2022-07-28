@@ -2,8 +2,8 @@
 
 importer="texture"
 type="StreamTexture"
-path.s3tc="res://.import/64x1_color_palette.png-d4bdb8d8b524f3f23b131a08ad195995.s3tc.stex"
-path.etc2="res://.import/64x1_color_palette.png-d4bdb8d8b524f3f23b131a08ad195995.etc2.stex"
+path.s3tc="res://.import/ColorPalette.png-452d9687c771b943d33e4d590481f710.s3tc.stex"
+path.etc2="res://.import/ColorPalette.png-452d9687c771b943d33e4d590481f710.etc2.stex"
 metadata={
 "imported_formats": [ "s3tc", "etc2" ],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://64x1_color_palette.png"
-dest_files=[ "res://.import/64x1_color_palette.png-d4bdb8d8b524f3f23b131a08ad195995.s3tc.stex", "res://.import/64x1_color_palette.png-d4bdb8d8b524f3f23b131a08ad195995.etc2.stex" ]
+source_file="res://ColorPalette.png"
+dest_files=[ "res://.import/ColorPalette.png-452d9687c771b943d33e4d590481f710.s3tc.stex", "res://.import/ColorPalette.png-452d9687c771b943d33e4d590481f710.etc2.stex" ]
 
 [params]
 

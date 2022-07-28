@@ -1,13 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[sub_resource type="SpatialMaterial" id=2]
-resource_name = "Material"
-vertex_color_use_as_albedo = true
-params_diffuse_mode = 4
-params_specular_mode = 3
-params_cull_mode = 2
-albedo_color = Color( 1, 0.84, 0.72, 1 )
-roughness = 0.0
+[ext_resource path="res://ToonMat.tres" type="Material" id=1]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "hexagon_Cylinder001"
@@ -18,15 +11,13 @@ surfaces/0 = {
 "blend_shape_data": [  ],
 "format": 2194711,
 "index_count": 60,
-"material": SubResource( 2 ),
+"material": ExtResource( 1 ),
 "primitive": 4,
 "skeleton_aabb": [  ],
 "vertex_count": 36
 }
 
-[node name="hexagon" type="Spatial"]
-
-[node name="Cylinder" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1.03093, 0, 0, 0 )
+[node name="Cylinder" type="MeshInstance"]
+transform = Transform( 2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0 )
 mesh = SubResource( 1 )
 material/0 = null

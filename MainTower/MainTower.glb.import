@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/spinning_cube.glb-2f1cfc520b6e366008d02efde3d27ad0.scn"
+path="res://.import/MainTower.glb-ce61f9fc096e6ad9bd05da70fa87dbd0.scn"
 
 [deps]
 
-source_file="res://MainTower/spinning_cube.glb"
-dest_files=[ "res://.import/spinning_cube.glb-2f1cfc520b6e366008d02efde3d27ad0.scn" ]
+source_file="res://MainTower/MainTower.glb"
+dest_files=[ "res://.import/MainTower.glb-ce61f9fc096e6ad9bd05da70fa87dbd0.scn" ]
 
 [params]
 

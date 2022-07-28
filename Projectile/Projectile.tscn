@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Projectile/projectile.gd" type="Script" id=1]
+[ext_resource path="res://Projectile/Projectile.gd" type="Script" id=1]
 [ext_resource path="res://HexGrid/Highlight.tscn" type="PackedScene" id=2]
-[ext_resource path="res://toon_material.tres" type="Material" id=3]
+[ext_resource path="res://ToonMat.tres" type="Material" id=3]
 
 [sub_resource type="CubeMesh" id=1]
 size = Vector3( 0.5, 0.5, 0.5 )

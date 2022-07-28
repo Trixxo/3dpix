@@ -2,12 +2,12 @@
 
 importer="scene"
 type="PackedScene"
-path="res://.import/hexagon.glb-58d07d4dd87083a1d38dcedd537c4504.scn"
+path="res://.import/Hexagon.glb-7cf3135d0e6752efdce6c06678eebd0b.scn"
 
 [deps]
 
-source_file="res://HexGrid/hexagon.glb"
-dest_files=[ "res://.import/hexagon.glb-58d07d4dd87083a1d38dcedd537c4504.scn" ]
+source_file="res://HexGrid/Hexagon.glb"
+dest_files=[ "res://.import/Hexagon.glb-7cf3135d0e6752efdce6c06678eebd0b.scn" ]
 
 [params]
 

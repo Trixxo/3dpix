@@ -1,8 +1,8 @@
 extends Spatial
 
-var hexagon_scene = preload("hexagon.tscn")
+var hexagon_scene = preload("Hexagon.tscn")
 var hex_highlight_scene = preload("Highlight.tscn")
-var cube_scene = preload("res://Tower/Prism_Tower.tscn")
+var cube_scene = preload("res://Tower/PrismTower.tscn")
 
 var cellsize = Vector2(2.3, 2.3)
 var map_size = 1

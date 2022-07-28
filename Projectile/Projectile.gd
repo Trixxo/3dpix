@@ -17,7 +17,7 @@ var damage = GlobalVars.projectile_damage
 var target = null
 
 var enemy_scene = preload("res://Enemy/Enemy.tscn")
-var sphere_expolsion_scene = preload("Particle_Damage.tscn")
+var sphere_expolsion_scene = preload("ParticleDamage.tscn")
 
 func _ready():
     # vel = (target.global_transform.origin - global_transform.origin).normalized() * speed

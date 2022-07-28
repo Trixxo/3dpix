@@ -1,6 +1,6 @@
 extends Spatial
 
-var cube_projectile_scene = preload("res://Projectile/Cube_projectile.tscn")
+var cube_projectile_scene = preload("res://Projectile/Projectile.tscn")
 var target_velocity
 var _timer
 var attack_speed = GlobalVars.attack_speed
