@@ -1,11 +1,10 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Hex_grid.tscn" type="PackedScene" id=1]
+[ext_resource path="res://HexGrid/Hex_grid.tscn" type="PackedScene" id=1]
 [ext_resource path="res://2DMain.gd" type="Script" id=2]
 [ext_resource path="res://Custom_Env.tres" type="Environment" id=3]
-[ext_resource path="res://Spawner.gd" type="Script" id=4]
-[ext_resource path="res://textures/0c7bf5fe9462d5bffbd11126e82908e39be3ce56220d900f633d58fb432e56f5.png" type="Texture" id=5]
-[ext_resource path="res://spinning_cube.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Enemy/Spawner.gd" type="Script" id=4]
+[ext_resource path="res://MainTower/spinning_cube.tscn" type="PackedScene" id=7]
 
 [sub_resource type="SpatialMaterial" id=9]
 resource_local_to_scene = true
@@ -27,86 +26,6 @@ roughness = 0.0
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 1, 0.2, 1 )
-
-[sub_resource type="Shader" id=7]
-code = "shader_type canvas_item;
-
-uniform sampler2D noiseTexture;
-uniform vec3 baseColorRGB = vec3(0.2, 0.1, 0.4);
-uniform float speed = 0.15;
-
-mat2 makem2(in float theta)
-{
-	float c = cos(theta);
-	float s = sin(theta);
-	vec2 part1 = vec2(c, -s);
-	vec2 part2 = vec2(s, c);
-	return mat2(part1, part2);
-}
-
-float noise(in vec2 x)
-{
-	return texture(noiseTexture, x * 0.01).x;
-}
-
-float fbm(in vec2 p)
-{
-	float z = 2.0;
-	float rz = 0.0;
-	vec2 bp = p;
-	for (float i = 1.0; i < 6.0; i++)
-	{
-		rz += abs((noise(p) - 0.5) * 2.0) / z;
-		z = z * 2.0;
-		p = p * 2.0;
-	}
-	return rz;
-}
-
-float dualfbm(in vec2 p)
-{
-	//get two rotated fbm calls and displace the domain
-	vec2 p2 = p * 0.7;
-	vec2 basis = vec2(fbm(p2 - (TIME * speed) * 1.6), fbm(p2 + (TIME * speed) * 1.7));
-	basis = (basis - 0.5) * 0.2;
-	p += basis;
-	
-	//coloring
-	return fbm(p * makem2((TIME * speed) * 0.2));
-}
-
-float circ(vec2 p) 
-{
-	float tau = 6.2831853;
-	float r = length(p);
-	r = 0.5 * log(r);
-	return abs(mod(r * 4.0, tau) - 3.14) * 3.0 + 0.2;
-}
-
-void fragment()
-{
-	//setup system
-	vec2 p = UV.xy / (1.0 / TEXTURE_PIXEL_SIZE).xy - 0.5;
-	p.x *= (1.0 / TEXTURE_PIXEL_SIZE).x / (1.0 / TEXTURE_PIXEL_SIZE).y;
-	p *= 4.0;
-	
-	float rz = dualfbm(p);
-	
-	//rings
-//	p /= exp(mod((TIME * speed) * 10.0, 3.14159));
-//	rz *= pow(abs((0.1 - circ(p))), 0.9);
-	
-	//final color
-	vec3 col = vec3(0.1) / rz;
-	col = pow(abs(col), vec3(0.99));
-	COLOR = vec4(col, 1.0);
-}"
-
-[sub_resource type="ShaderMaterial" id=8]
-shader = SubResource( 7 )
-shader_param/baseColorRGB = Vector3( 0.2, 0.1, 0.4 )
-shader_param/speed = 0.15
-shader_param/noiseTexture = ExtResource( 5 )
 
 [node name="Node2D" type="ViewportContainer"]
 script = ExtResource( 2 )
@@ -166,9 +85,3 @@ transform = Transform( 0.78917, 0.285238, 0.543921, 0, 0.885613, -0.464425, -0.6
 light_color = Color( 1, 0.415686, 0.415686, 1 )
 light_energy = 0.5
 spot_range = 46.5667
-
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
-material = SubResource( 8 )
-margin_right = 300.0
-margin_bottom = 300.0
