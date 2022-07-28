@@ -25,6 +25,8 @@ roughness = 0.0
 material = SubResource( 7 )
 radius = 0.4
 height = 0.8
+radial_segments = 4
+rings = 4
 
 [sub_resource type="ParticlesMaterial" id=8]
 emission_shape = 5
@@ -40,6 +42,8 @@ scale_curve = SubResource( 4 )
 material = ExtResource( 1 )
 radius = 0.4
 height = 0.8
+radial_segments = 4
+rings = 4
 
 [node name="Spatial" type="Spatial"]
 
