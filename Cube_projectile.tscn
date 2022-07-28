@@ -30,7 +30,7 @@ params_billboard_mode = 3
 particles_anim_h_frames = 1
 particles_anim_v_frames = 1
 particles_anim_loop = false
-albedo_color = Color( 0.678431, 0, 0.266667, 1 )
+albedo_color = Color( 1.68, 1, 1.27, 1 )
 
 [sub_resource type="QuadMesh" id=5]
 material = SubResource( 9 )
