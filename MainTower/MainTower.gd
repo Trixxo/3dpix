@@ -13,7 +13,7 @@ signal finished_interpolation
 func _ready():
     # $AnimationPlayer3.play("spin")
     # instance_cube()
-    if name == "spinning_cube":
+    if name == "MainTower":
         origin_transform = transform
         origin_rotation = transform.basis
         _timer = Timer.new()
@@ -24,10 +24,10 @@ func _ready():
         _timer.set_one_shot(false)
         _timer.start()
     else:
-        get_node("/root/Node2D/Viewport/spinning_cube").on_new_tower()
+        get_node("/root/Node2D/Viewport/MainTower").on_new_tower()
 
 func _process(dt):
-    if not name == "spinning_cube":
+    if not name == "MainTower":
         rotation.y += dt
 
     if target_velocity != null:

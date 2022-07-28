@@ -7,7 +7,7 @@ var bounds_bottom
 var _timer
 
 func _ready():
-    var hex_grid = get_node("../hex_map")
+    var hex_grid = get_node("../HexGrid")
     yield(hex_grid, "found_bounds")
     bounds_top = hex_grid.ground_bounds_top
     bounds_bottom = hex_grid.ground_bounds_bottom
