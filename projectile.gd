@@ -63,16 +63,12 @@ class SortMan:
 func find_target():
 	var enemies_sorted = get_tree().get_nodes_in_group("enemies")
 	enemies_sorted.sort_custom(SortMan, "enemy_sort_dist")
-	var i = 0
-	while (enemies_sorted.size() > 0 and target == null and i < enemies_sorted.size()):
-		target = enemies_sorted[i]
-		if target.effective_health <= 0:
-			target.remove_from_group("enemies")
-			target = null
-			i += 1
-		else:
-			target.effective_health -= damage
-
+	if not enemies_sorted.size() > 0: return
+	var first_enemy = enemies_sorted[0]
+	target = first_enemy
+	target.effective_health -= damage
+	if target.effective_health <= 0:
+		target.remove_from_group("enemies")
 
 
 func seek(target) -> Vector3:

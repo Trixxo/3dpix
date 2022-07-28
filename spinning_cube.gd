@@ -6,7 +6,7 @@ var _timer
 var attack_speed = GlobalVars.attack_speed
 var origin_rotation
 var origin_transform
-var interpolation_pct = 0
+var interpolation_factor = 0
 
 signal finished_interpolation
 
@@ -57,16 +57,19 @@ func interpolate_quat(target, dt):
 	var target_transform = Transform.IDENTITY.looking_at(target, Vector3(0, 1, 0))
 	# target_transform = target_transform.rotated(target_transform.basis.x, -PI / 2.0)
 	var target_quat = Quat(target_transform.basis)
+	if not origin_quat.is_normalized() or not target_quat.is_normalized():
+		print("not normalized")
 
 	if ((-transform.basis.z.normalized()).distance_to(target.normalized())) < 0.1:
 		emit_signal('finished_interpolation')
+		print("finished interpolation")
 		origin_rotation = transform.basis
-		interpolation_pct = 0
+		interpolation_factor = 0
 		target_velocity = null
 		return Quat(transform.basis)
 	else:
-		interpolation_pct += dt * GlobalVars.attack_speed * 1.5
-		return origin_quat.slerp(target_quat, interpolation_pct)
+		interpolation_factor += min(1, dt * GlobalVars.attack_speed * 1.5)
+		return origin_quat.normalized().slerp(target_quat.normalized(), interpolation_factor)
 
 
 func rand_vec_on_sphere() -> Vector3:
