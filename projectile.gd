@@ -9,7 +9,7 @@ var speed = max_speed * speed_factor
 
 var vel = Vector3.ZERO
 var acc = Vector3.ZERO
-var max_steer_force = 10
+var max_steer_force = 50
 var steer_force = 0.2
 
 var damage = GlobalVars.projectile_damage
