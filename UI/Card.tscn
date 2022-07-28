@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=2]
+
+[sub_resource type="SpatialMaterial" id=3]
+resource_local_to_scene = true
+params_diffuse_mode = 4
+params_specular_mode = 3
+albedo_color = Color( 1.5, 1.5, 1.5, 1 )
+
+[sub_resource type="QuadMesh" id=2]
+material = SubResource( 3 )
+size = Vector2( 10, 16 )
+
+[sub_resource type="BoxShape" id=4]
+extents = Vector3( 5, 8, 0.5 )
+
+[node name="Card" type="MeshInstance"]
+mesh = SubResource( 2 )
+material/0 = null
+
+[node name="Area" type="Area" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5 )
+shape = SubResource( 4 )
