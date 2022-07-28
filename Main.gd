@@ -14,7 +14,7 @@ func _ready():
 func _input(event):
     if event is InputEventKey and event.pressed:
         if event.scancode == KEY_SPACE:
-            var hex_map_node = $'Viewport/hex_map'
+            var hex_map_node = $'Viewport/HexGrid'
             hex_map_node.delete_children(hex_map_node)
             hex_map_node.map_size += 1			
             hex_map_node.hex_map = hex_map_node.hexes_in_range(hex_map_node.map_size)
