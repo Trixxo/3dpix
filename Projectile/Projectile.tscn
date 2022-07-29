@@ -8,6 +8,7 @@
 resource_local_to_scene = true
 params_diffuse_mode = 4
 params_specular_mode = 3
+params_blend_mode = 1
 albedo_color = Color( 0.886275, 0.988235, 1, 1 )
 roughness = 0.0
 
@@ -43,7 +44,7 @@ script = ExtResource( 1 )
 
 [node name="Spatial" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.0250356 )
-amount = 512
+amount = 16
 lifetime = 0.2
 fixed_fps = 240
 local_coords = false
