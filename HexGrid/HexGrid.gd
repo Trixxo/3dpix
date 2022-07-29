@@ -1,26 +1,22 @@
 extends MultiMeshInstance
 
 var hexagon_scene = preload("Hexagon.tscn")
-var hex_highlight_scene = preload("Highlight.tscn")
 var cube_scene = preload("res://Tower/PrismTower.tscn")
 
 var cellsize = Vector2(2.3, 2.3)
 var map_size = 1
 var hex_map = hexes_in_range(map_size)
-var intersection
 var ground_bounds_top = []
 var ground_bounds_bottom = []
-var axial_pos
+var is_building_tower = false
+var building_preview: MeshInstance
 
 onready var view_size = get_viewport().size
-onready var highlight = hex_highlight_scene.instance()
 
 signal found_bounds
 
 func _ready():
     create_hex_meshes_from_cells()
-    get_tree().get_root().call_deferred('add_child', highlight)
-    highlight.visible = false
 
 func _process(_dt):
     pass
@@ -77,17 +73,29 @@ func create_hex_meshes_from_cells():
         add_child(freshgon)
 
 func _mouse_entered_hexagon(gon):
-    highlight.transform.origin = gon.global_transform.origin + Vector3.UP * 2
-    highlight.show()
+    if is_building_tower and is_instance_valid(building_preview):
+        building_preview.transform.origin = gon.global_transform.origin + Vector3.UP * 2
+        building_preview.show()
 
 func _mouse_exited_hexagon():
-    highlight.hide()
+    if is_instance_valid(building_preview):
+        building_preview.hide()
 
 func _mouse_clicked_hexagon(_cam, event, _click_pos, _click_normal, _shape_idx, gon):
-    if event.is_action_pressed("game_select"):
+    if event.is_action_pressed("game_select") and is_building_tower:
+        is_building_tower = false
+        building_preview.queue_free()
         var cube = cube_scene.instance()
         cube.transform.origin = Vector3(gon.transform.origin.x, 2.25, gon.transform.origin.z)
         get_tree().get_root().add_child(cube)
+
+func start_building_tower(preview_node: MeshInstance):
+    is_building_tower = true
+    building_preview = preview_node.duplicate()
+    building_preview.scale = Vector3.ONE
+    building_preview.rotation_degrees = Vector3.ZERO
+    building_preview.hide()
+    add_child(building_preview)
 
 
 static func delete_children(node):

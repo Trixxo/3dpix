@@ -7,6 +7,7 @@ onready var initial_scale = scale
 func _ready():
     var _e = $Area.connect("mouse_entered", self, "_mouse_entered")
     var _e2 = $Area.connect("mouse_exited", self, "_mouse_exited")
+    var _e3 = $Area.connect("input_event", self, "_area_input_event")
 
 func _process(dt):
     idle_movement_factor += dt / 2
@@ -20,3 +21,7 @@ func _mouse_entered():
 
 func _mouse_exited():
     scale = initial_scale
+
+func _area_input_event(_cam, event, _position, _normal, _shape_index):
+    if event.is_action_released("game_select"):
+        $"/root/Node2D/HexGrid".start_building_tower($Preview)
