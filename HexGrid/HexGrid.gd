@@ -1,4 +1,4 @@
-extends Spatial
+extends MultiMeshInstance
 
 var hexagon_scene = preload("Hexagon.tscn")
 var hex_highlight_scene = preload("Highlight.tscn")
@@ -64,14 +64,17 @@ func hexes_in_range(N : int) -> Array:
     return results
 # Called when the node enters the scene tree for the first time.
 func create_hex_meshes_from_cells():
-    for hex in hex_map:
+    multimesh.instance_count = hex_map.size()
+    for i in range(hex_map.size()):
+        var hex = hex_map[i]
         var pixe_pos = cell_to_pixel(hex)
         var freshgon = hexagon_scene.instance()
         freshgon.transform.origin = Vector3(pixe_pos.x, 0, pixe_pos.y)
+        multimesh.set_instance_transform(i, Transform(Basis().scaled(Vector3.ONE * 2), Vector3(pixe_pos.x, 0, pixe_pos.y)))
+        freshgon.connect("mouse_entered", self, "_mouse_entered_hexagon", [freshgon])
+        freshgon.connect("mouse_exited", self, "_mouse_exited_hexagon")
+        freshgon.connect("input_event", self, "_mouse_clicked_hexagon", [freshgon])
         add_child(freshgon)
-        freshgon.get_node("Area").connect("mouse_entered", self, "_mouse_entered_hexagon", [freshgon])
-        freshgon.get_node("Area").connect("mouse_exited", self, "_mouse_exited_hexagon")
-        freshgon.get_node("Area").connect("input_event", self, "_mouse_clicked_hexagon", [freshgon])
 
 func _mouse_entered_hexagon(gon):
     highlight.transform.origin = gon.global_transform.origin + Vector3.UP * 2
