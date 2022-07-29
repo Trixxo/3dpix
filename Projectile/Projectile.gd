@@ -18,6 +18,7 @@ var target = null
 
 var enemy_scene = preload("res://Enemy/Enemy.tscn")
 var sphere_expolsion_scene = preload("ParticleDamage.tscn")
+var experience_scene = preload("res://Experience/Experience.tscn")
 
 func _process(dt):
     steer_force = pow(speed_factor, 2) * max_steer_force
@@ -48,6 +49,9 @@ func hit_target():
     var vec_to_target = target.global_transform.origin - global_transform.origin
     sphere_explosion.rotate_object_local(Vector3(0, 1, 0), atan2(vec_to_target.z, -vec_to_target.x))
     if target.health <= 0:
+        var experience = experience_scene.instance()
+        experience.transform = target.transform
+        get_tree().get_root().add_child(experience)
         target.queue_free()
 
     queue_free()
