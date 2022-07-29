@@ -11,6 +11,8 @@ roughness = 0.0
 
 [sub_resource type="SphereMesh" id=1]
 material = SubResource( 2 )
+radial_segments = 16
+rings = 8
 is_hemisphere = true
 
 [node name="MeshInstance" type="MeshInstance"]

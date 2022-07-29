@@ -11,7 +11,6 @@ var intersection
 var ground_bounds_top = []
 var ground_bounds_bottom = []
 var axial_pos
-var hovered_hexagon
 
 onready var view_size = get_viewport().size
 onready var highlight = hex_highlight_scene.instance()
@@ -68,8 +67,8 @@ func create_hex_meshes_from_cells():
     for hex in hex_map:
         var pixe_pos = cell_to_pixel(hex)
         var freshgon = hexagon_scene.instance()
-        get_tree().get_root().call_deferred("add_child", freshgon)
         freshgon.transform.origin = Vector3(pixe_pos.x, 0, pixe_pos.y)
+        add_child(freshgon)
         freshgon.get_node("Area").connect("mouse_entered", self, "_mouse_entered_hexagon", [freshgon])
         freshgon.get_node("Area").connect("mouse_exited", self, "_mouse_exited_hexagon")
         freshgon.get_node("Area").connect("input_event", self, "_mouse_clicked_hexagon", [freshgon])
