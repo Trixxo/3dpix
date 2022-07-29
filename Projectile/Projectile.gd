@@ -19,10 +19,6 @@ var target = null
 var enemy_scene = preload("res://Enemy/Enemy.tscn")
 var sphere_expolsion_scene = preload("ParticleDamage.tscn")
 
-func _ready():
-    # vel = (target.global_transform.origin - global_transform.origin).normalized() * speed
-    pass
-
 func _process(dt):
     steer_force = pow(speed_factor, 2) * max_steer_force
     speed = update_speed()
