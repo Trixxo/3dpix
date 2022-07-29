@@ -4,7 +4,7 @@
 resource_local_to_scene = true
 params_diffuse_mode = 4
 params_specular_mode = 3
-albedo_color = Color( 1.5, 1.5, 1.5, 1 )
+albedo_color = Color( 1.2, 1.2, 1.2, 1 )
 
 [sub_resource type="QuadMesh" id=2]
 material = SubResource( 3 )
