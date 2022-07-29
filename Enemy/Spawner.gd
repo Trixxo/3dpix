@@ -25,7 +25,6 @@ func instance_enemy():
     for _i in range(round(spawn_amount)):
         var enemy = enemy_scene.instance()
         var pos = rand_point_on_bounds()
-        # get_tree().get_root().get_node("Node2D/Viewport").add_child(enemy)
         add_child(enemy)
         enemy.global_transform[3] = Vector3(pos.x, 4, pos.y)
 

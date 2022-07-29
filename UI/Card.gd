@@ -11,7 +11,8 @@ func _process(dt):
 
     var space_state = get_world().direct_space_state
 
-    var mouse_position = get_viewport().get_mouse_position() / OS.window_size * get_viewport().size
+    var mouse_position = get_viewport().get_mouse_position()
+    print(mouse_position)
 
     var ray_origin = camera.project_ray_origin(mouse_position)
     var ray_end = ray_origin + camera.project_ray_normal(mouse_position) * 2000

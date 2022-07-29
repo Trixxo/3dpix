@@ -24,7 +24,7 @@ func _ready():
         _timer.set_one_shot(false)
         _timer.start()
     else:
-        get_node("/root/Node2D/Viewport/MainTower").on_new_tower()
+        get_node("/root/Node2D/MainTower").on_new_tower()
 
 func _process(dt):
     if not name == "MainTower":
