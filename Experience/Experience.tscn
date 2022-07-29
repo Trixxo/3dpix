@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Experimental/Noise.png" type="Texture" id=1]
+[ext_resource path="res://Experience/Experience.gd" type="Script" id=2]
 
 [sub_resource type="Shader" id=3]
 code = "// NOTE: Shader automatically converted from Godot Engine 3.4.4.stable's SpatialMaterial.
@@ -102,7 +103,7 @@ float fresnel(float amount, vec3 normal, vec3 view)
 void fragment() {
 	vec2 base_uv = UV;
 	vec4 albedo_tex = texture(texture_albedo,base_uv);
-    float basic_fresnel = fresnel(1.0, NORMAL, vec3(0, 0, 1.0));
+    float basic_fresnel = fresnel(4.0, NORMAL, vec3(0, 0, 1.0));
     
     vec2 tex_pixel_size = vec2(2.0 / 256.0, 1.0 / 256.0);
     
@@ -122,19 +123,26 @@ void fragment() {
 	col = pow(abs(col), vec3(0.99));
     
 //	ALBEDO = (albedo.rgb * albedo_tex.rgb) * col + basic_fresnel;
-    ALBEDO = albedo.rgb + col * vec3(0.2, 4.0, 1.2) * basic_fresnel;
+    ALBEDO = (albedo.rgb + col * vec3(0.2, 4.0, 1.2) * .5 * vec3(0.1, 0.1, 1.0) + basic_fresnel * vec3(1.0, 1.0, 15.0)* 2.0);
 	METALLIC = metallic;
 	ROUGHNESS = roughness;
 //	SPECULAR = specular;
 	ALPHA = (albedo.a * albedo_tex.a * min(1.0, col.x + 0.5));
+//    ALPHA = 1.0;
 }
 
 "
 
+[sub_resource type="Gradient" id=5]
+colors = PoolColorArray( 3.9, 0.1, 0.1, 1, 3.9, 0.1, 0.1, 1 )
+
+[sub_resource type="GradientTexture" id=6]
+gradient = SubResource( 5 )
+
 [sub_resource type="ShaderMaterial" id=4]
 resource_local_to_scene = true
 shader = SubResource( 3 )
-shader_param/albedo = Color( 0.901961, 0.129412, 0.670588, 1 )
+shader_param/albedo = Color( 0.4, 0.13, 1.5, 1 )
 shader_param/specular = 0.5
 shader_param/metallic = 0.0
 shader_param/roughness = 0.0
@@ -145,11 +153,15 @@ shader_param/uv2_scale = Vector3( 1, 1, 1 )
 shader_param/uv2_offset = Vector3( 0, 0, 0 )
 shader_param/baseColorRGB = Vector3( 0.2, 0.1, 0.4 )
 shader_param/speed = 0.15
+shader_param/texture_albedo = SubResource( 6 )
 shader_param/noiseTexture = ExtResource( 1 )
 
 [sub_resource type="SphereMesh" id=2]
 material = SubResource( 4 )
+radius = 0.5
+height = 1.0
 
 [node name="Spatial" type="MeshInstance"]
 mesh = SubResource( 2 )
 material/0 = null
+script = ExtResource( 2 )

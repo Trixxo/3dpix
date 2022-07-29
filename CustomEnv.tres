@@ -13,3 +13,6 @@ ambient_light_sky_contribution = 0.0
 tonemap_mode = 3
 tonemap_white = 4.0
 glow_enabled = true
+glow_intensity = 1.0
+glow_hdr_threshold = 1.5
+glow_bicubic_upscale = true
