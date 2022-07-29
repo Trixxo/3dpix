@@ -26,7 +26,7 @@ func _ready():
 func _process(dt):
     steer_force = pow(speed_factor, 2) * max_steer_force
     speed = update_speed()
-    acc += seek(target)
+    acc += seek()
     vel += acc * dt
     vel = self.clamp(vel, speed)
     # rotation = vel
@@ -71,7 +71,7 @@ func find_target():
         target.remove_from_group("enemies")
 
 
-func seek(target) -> Vector3:
+func seek() -> Vector3:
     var steer = Vector3.ZERO
     if is_instance_valid(target):
         var desired = (target.global_transform.origin - global_transform.origin).normalized() * speed
@@ -90,5 +90,5 @@ func clamp(vec: Vector3, length: float) -> Vector3:
     else:
         return vec
 
-func current_max_distance(target: Vector3) -> float:
-    return (target - init_pos).length()
+func current_max_distance(target_position: Vector3) -> float:
+    return (target_position - init_pos).length()

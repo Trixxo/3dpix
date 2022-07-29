@@ -20,8 +20,6 @@ var sorted_enemy_group
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    var enemies = get_tree().get_nodes_in_group("enemeies")
-
     base_scale = scale
 
     add_to_group("enemies")
