@@ -13,7 +13,7 @@ var dir
 # Called when the node enters the scene tree for the first time.
 func _ready():
     dir = transform.origin.normalized()
-    rand_dist = randi() % 9 + 8
+    rand_dist = randi() % 2 + 6
     
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(dt):

@@ -63,7 +63,6 @@ func _mouse_clicked_hexagon(_cam, event, _click_pos, _click_normal, _shape_idx, 
     gon.tower_type = new_tower_type
 
     Towers.apply_tower_effect(new_tower_type)
-    $'/root/Node2D/MainTower'.on_new_tower()
 
     # reset state for selecting hexagon to build
     building_preview = null

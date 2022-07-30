@@ -30,7 +30,7 @@ static func apply_tower_effect(tower_type) -> void:
         Type.Prism:
             GlobalVars.attack_speed += 0.2
             return
-        Type.Prism:
+        Type.ThreeSpheres:
             GlobalVars.experience_sentinels += 1
             return
 

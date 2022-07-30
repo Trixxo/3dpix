@@ -14,7 +14,8 @@ var original_target_dist
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-    rand_dir = [-1, 1][randi()%2]
+    add_to_group("experience_sentinels")
+    rand_dir = [-1, 1][randi()%2] * (randf() + 0.2)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
