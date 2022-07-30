@@ -35,6 +35,7 @@ func _process(dt):
         if (target_vec == Vector3(0, 1, 0)):
             target.global_transform.origin = global_transform.origin
             if (global_transform.origin.distance_to(target_vec) < 0.1):
+                GlobalVars.experience += 1
                 target.queue_free()
                 target = null
                 target_vec = null
