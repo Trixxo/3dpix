@@ -19,7 +19,10 @@ func _global_vars_updated():
         GlobalVars.experience -= experience_needed
 
 func _card_clicked(card: MeshInstance):
-    $"/root/Node2D/HexGrid".start_building_tower(card.preview_node, card.tower_type)
+    var grid = $"/root/Node2D/HexGrid"
+    if grid.new_tower_type != null: return
+
+    grid.start_building_tower(card.preview_node, card.tower_type)
     self.show_cards = false
 
 func set_show_cards(val):

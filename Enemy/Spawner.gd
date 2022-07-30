@@ -6,11 +6,10 @@ var bounds_top
 var bounds_bottom
 var _timer
 
+onready var view_size = get_viewport().size
+
 func _ready():
-    var hex_grid = get_node("../HexGrid")
-    yield(hex_grid, "found_bounds")
-    bounds_top = hex_grid.ground_bounds_top
-    bounds_bottom = hex_grid.ground_bounds_bottom
+    find_bounds()
 
     _timer = Timer.new()
     add_child(_timer)
@@ -29,6 +28,26 @@ func instance_enemy():
         enemy.global_transform[3] = Vector3(pos.x, 4, pos.y)
 
     spawn_amount += 0.1
+
+func find_bounds():
+    var camera = $"../Camera"
+    var space_state = get_world().direct_space_state
+
+    var coords = Vector2(view_size.x, 0)
+    var ray_og = camera.project_ray_origin(coords)
+    var intersection_top_right = space_state.intersect_ray(ray_og, ray_og + camera.project_ray_normal(coords) * 2000).position
+    coords = Vector2(0, 0)
+    ray_og = camera.project_ray_origin(coords)
+    var intersection_top_left = space_state.intersect_ray(ray_og, ray_og + camera.project_ray_normal(coords) * 2000).position
+    coords = Vector2(view_size.x, view_size.y)
+    ray_og = camera.project_ray_origin(coords)
+    var intersection_bottom_right = space_state.intersect_ray(ray_og, ray_og + camera.project_ray_normal(coords) * 2000).position
+    coords = Vector2(0, view_size.y)
+    ray_og = camera.project_ray_origin(coords)
+    var intersection_bottom_left = space_state.intersect_ray(ray_og, ray_og + camera.project_ray_normal(coords) * 2000).position
+
+    bounds_top = [Vector2(intersection_top_left.x, intersection_top_left.z), Vector2(intersection_top_right.x, intersection_top_right.z)]
+    bounds_bottom = [Vector2(intersection_bottom_left.x, intersection_bottom_left.z), Vector2(intersection_bottom_right.x, intersection_bottom_right.z)]
 
 func rand_point_on_bounds():
 
