@@ -4,6 +4,7 @@ var idle_movement_factor = 0
 var idle_movement_speed = 0.3 + randf() * 0.2
 var preview_node: Spatial
 var is_animating = false
+var tower_type
 onready var initial_y = transform.origin.y
 onready var camera = $'../../Camera'
 onready var initial_scale = scale
@@ -27,7 +28,8 @@ func _process(dt):
     self.rotation_degrees.z = 5 * sin(idle_movement_factor * 0.5)
     self.rotation_degrees.y = -10 + 10 * cos(idle_movement_factor)
 
-func add_preview(scene: Resource):
+func set_preview(scene: Resource):
+    if is_instance_valid(preview_node): preview_node.queue_free()
     preview_node = scene.instance()
     preview_node.transform.origin.z = 1
     preview_node.transform = preview_node.transform.scaled(Vector3.ONE * 2)
