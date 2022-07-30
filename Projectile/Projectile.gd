@@ -25,7 +25,7 @@ func _process(dt):
     speed = update_speed()
     acc += seek()
     vel += acc * dt
-    vel = self.clamp(vel, speed)
+    vel = GlobalVars.clamp(vel, speed)
     # rotation = vel
     # look_at(Vector3(1, 0, 0), Vector3.UP)
     # rotation.y = PI / 2.0
@@ -83,12 +83,6 @@ func update_speed() -> float:
         speed_factor = global_transform[3].length() / self.current_max_distance(target.global_transform[3])
 
     return min(minimum_speed + speed_factor * max_speed, max_speed)
-
-func clamp(vec: Vector3, length: float) -> Vector3:
-    if (vec.length() > length):
-        return vec.normalized() * speed
-    else:
-        return vec
 
 func current_max_distance(target_position: Vector3) -> float:
     return (target_position - init_pos).length()
