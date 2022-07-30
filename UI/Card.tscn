@@ -2,22 +2,18 @@
 
 [ext_resource path="res://Tower/PrismTower.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI/Card.gd" type="Script" id=2]
+[ext_resource path="res://UI/CardMat.tres" type="Material" id=3]
 
-[sub_resource type="SpatialMaterial" id=3]
-resource_local_to_scene = true
-params_diffuse_mode = 4
-params_specular_mode = 3
-albedo_color = Color( 1.2, 1.2, 1.2, 1 )
-
-[sub_resource type="QuadMesh" id=2]
-material = SubResource( 3 )
-size = Vector2( 10, 16 )
+[sub_resource type="CubeMesh" id=5]
+material = ExtResource( 3 )
+size = Vector3( 10, 16, 0.5 )
 
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 5, 8, 0.5 )
 
 [node name="Card" type="MeshInstance"]
-mesh = SubResource( 2 )
+cast_shadow = 0
+mesh = SubResource( 5 )
 material/0 = null
 script = ExtResource( 2 )
 
@@ -28,9 +24,9 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.5 )
 shape = SubResource( 4 )
 
 [node name="Preview" parent="." instance=ExtResource( 1 )]
 transform = Transform( 2, 0, 0, 0, 1.85543, -0.746591, 0, 0.746591, 1.85543, 0, 0, 1.83024 )
+cast_shadow = 0
 script = null

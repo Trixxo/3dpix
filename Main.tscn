@@ -50,7 +50,7 @@ fov = 50.0
 size = 50.0
 
 [node name="UI" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 27.1716, 27.1716 )
+transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 23.0206, 21.8415, 21.8415 )
 
 [node name="MainTower" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )

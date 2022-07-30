@@ -1,6 +1,8 @@
 extends MeshInstance
 
 var idle_movement_factor = 0 + randf() * PI
+var idle_movement_speed = 0.4 + randf() * 0.1
+onready var initial_y = transform.origin.y
 onready var camera = $'../../Camera'
 onready var initial_scale = scale
 
@@ -12,9 +14,11 @@ func _ready():
     var _e3 = $Area.connect("input_event", self, "_area_input_event")
 
 func _process(dt):
-    idle_movement_factor += dt / 2
-    transform = transform.translated(Vector3(dt * 0.5 * sin(3 * sin(idle_movement_factor)), dt * 0.2 * sin(0.3 + idle_movement_factor * 0.5), 0))
-    rotate_object_local(Vector3.FORWARD, dt * 0.02 * sin(0.2 + idle_movement_factor))
+    idle_movement_factor += idle_movement_speed * dt
+    transform.origin.x = 0.5 * sin(3 * sin(idle_movement_factor))
+    transform.origin.y = initial_y + sin(0.3 + idle_movement_factor * 0.5)
+    self.rotation_degrees.z = 5 * sin(0.4 + idle_movement_factor * 0.5)
+    self.rotation_degrees.y = -10 + 10 * sin(0.2 + idle_movement_factor)
 
     $Preview.rotate(Vector3.UP, dt)
 
@@ -27,4 +31,3 @@ func _mouse_exited():
 func _area_input_event(_cam, event, _position, _normal, _shape_index):
     if event.is_action_released("game_select"):
         emit_signal("click")
-        $"/root/Node2D/HexGrid".start_building_tower($Preview)

@@ -7,10 +7,10 @@
 script = ExtResource( 2 )
 
 [node name="Card" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 1, 24.9131, -15.1379, 0 )
+transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 1, 0, -15.138, 0 )
 
 [node name="Card2" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 1, 24.9131, -0.215212, 0 )
+transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 1, 0, -0.215, 0 )
 
 [node name="Card3" parent="." instance=ExtResource( 1 )]
-transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 1, 24.9131, 14.4948, 0 )
+transform = Transform( 0.8, 0, 0, 0, 0.8, 0, 0, 0, 1, 0, 14.495, 0 )
