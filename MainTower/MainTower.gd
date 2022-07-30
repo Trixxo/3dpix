@@ -34,7 +34,7 @@ func instance_cube():
     if enemies.size() > 0 and target_velocity == null:
         cube = cube_projectile_scene.instance()
         cube.transform.origin.y = 4
-        cube.vel = rand_vec_on_sphere() * cube.speed
+        cube.vel = GlobalVars.rand_vec_on_sphere() * cube.speed
         cube.transform = cube.transform.translated(cube.vel.normalized() * (self.mesh.mid_height / 2.0))
 
         target_velocity = cube.vel
@@ -59,12 +59,3 @@ func interpolate_quat(target, dt):
         interpolation_factor += dt * GlobalVars.attack_speed * 1.5
         interpolation_factor = min(1, interpolation_factor)
         return origin_quat.normalized().slerp(target_quat.normalized(), interpolation_factor)
-
-
-func rand_vec_on_sphere() -> Vector3:
-    var angle = randf() * 2.0 * PI
-    var z = randf() * 2.0 - 1.0
-    var result = Vector3(sqrt(1.0 - pow(z, 2)) * cos(angle), sqrt(1.0 - pow(z, 2)) * sin(angle), z)
-    if (result.y < 0):
-        result = rand_vec_on_sphere()
-    return result

@@ -88,8 +88,5 @@ transform = Transform( 1, 0, 0, 0, -0.661639, 0.749822, 0, -0.749822, -0.661639,
 light_color = Color( 0.0901961, 0.701961, 0.156863, 1 )
 spot_range = 110.107
 
-[node name="Spatial3" parent="." instance=ExtResource( 3 )]
-transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 8.51824, 6.59929, -4.76837e-07 )
-
 [node name="Spatial2" parent="." instance=ExtResource( 3 )]
-transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 5.22632, 5.91411, 0 )
+transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 1, 0 )

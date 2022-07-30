@@ -31,3 +31,11 @@ static func clamp(vec: Vector3, length: float) -> Vector3:
         return vec.normalized() * length
     else:
         return vec
+
+static func rand_vec_on_sphere() -> Vector3:
+    var angle = randf() * 2.0 * PI
+    var z = randf() * 2.0 - 1.0
+    var result = Vector3(sqrt(1.0 - pow(z, 2)) * cos(angle), sqrt(1.0 - pow(z, 2)) * sin(angle), z)
+    if (result.y < 0):
+        result = rand_vec_on_sphere()
+    return result

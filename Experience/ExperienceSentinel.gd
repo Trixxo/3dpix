@@ -20,8 +20,11 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(dt):
     if target == null:
-        # idle_movement()
+        set_idle(true)
         find_target()
+    else:
+        set_idle(false)
+
 
     if is_instance_valid(target):
         var dir = target_vec - global_transform.origin
@@ -46,7 +49,15 @@ class SortMan:
     static func enemy_sort_dist(a, b):
         return a.transform.origin.length() < b.transform.origin.length()
         
-# func idle_movement():
+func set_idle(val):
+    if $MeshInstance.idle:
+        $MeshInstance.idle = val
+        $MeshInstance2.idle = val
+        $MeshInstance3.idle = val
+    else:
+        $MeshInstance.idle = val
+        $MeshInstance2.idle = val
+        $MeshInstance3.idle = val
 
 
 func find_target():
