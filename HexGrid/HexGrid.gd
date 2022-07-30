@@ -10,39 +10,8 @@ var ground_bounds_bottom = []
 var building_preview: MeshInstance
 var new_tower_type
 
-onready var view_size = get_viewport().size
-
-signal found_bounds
-
 func _ready():
     create_hex_meshes_from_cells()
-
-func _process(_dt):
-    pass
-
-func _physics_process(_dt):
-    var camera = $'../Camera'
-
-    var space_state = get_world().direct_space_state
-
-    if ground_bounds_bottom.size() == 0:
-        var coords = Vector2(view_size.x, 0)
-        var ray_og = camera.project_ray_origin(coords)
-        var intersection_top_right = space_state.intersect_ray(ray_og, ray_og + camera.project_ray_normal(coords) * 2000).position
-        coords = Vector2(0, 0)
-        ray_og = camera.project_ray_origin(coords)
-        var intersection_top_left = space_state.intersect_ray(ray_og, ray_og + camera.project_ray_normal(coords) * 2000).position
-        coords = Vector2(view_size.x, view_size.y)
-        ray_og = camera.project_ray_origin(coords)
-        var intersection_bottom_right = space_state.intersect_ray(ray_og, ray_og + camera.project_ray_normal(coords) * 2000).position
-        coords = Vector2(0, view_size.y)
-        ray_og = camera.project_ray_origin(coords)
-        var intersection_bottom_left = space_state.intersect_ray(ray_og, ray_og + camera.project_ray_normal(coords) * 2000).position
-
-        ground_bounds_top = [Vector2(intersection_top_left.x, intersection_top_left.z), Vector2(intersection_top_right.x, intersection_top_right.z)]
-        ground_bounds_bottom = [Vector2(intersection_bottom_left.x, intersection_bottom_left.z), Vector2(intersection_bottom_right.x, intersection_bottom_right.z)]
-
-        emit_signal("found_bounds")
 
 func cell_to_pixel(cell : Vector2) -> Vector2:
     var x = (sqrt(3.0) * cell.x + sqrt(3.0) / 2.0 * cell.y) * cellsize.x
@@ -72,24 +41,33 @@ func create_hex_meshes_from_cells():
         add_child(freshgon)
 
 func _mouse_entered_hexagon(gon):
-    if is_instance_valid(building_preview):
-        building_preview.transform.origin = gon.global_transform.origin + Vector3.UP * 2
-        building_preview.show()
+    if not is_instance_valid(building_preview) or gon.tower_type != null: return
+
+    building_preview.transform.origin = gon.global_transform.origin + Vector3.UP * 2
+    building_preview.show()
 
 func _mouse_exited_hexagon():
-    if is_instance_valid(building_preview):
-        building_preview.hide()
+    if not is_instance_valid(building_preview): return
+
+    building_preview.hide()
 
 func _mouse_clicked_hexagon(_cam, event, _click_pos, _click_normal, _shape_idx, gon):
-    if event.is_action_pressed("game_select") and is_instance_valid(building_preview):
-        building_preview.transform.origin = Vector3(gon.transform.origin.x, 2.25, gon.transform.origin.z)
+    if (not event.is_action_pressed("game_select") 
+            or not is_instance_valid(building_preview) 
+            or gon.tower_type != null 
+            or new_tower_type == null):
+        return 
 
-        Towers.apply_tower_effect(new_tower_type)
-        $'/root/Node2D/MainTower'.on_new_tower()
+    building_preview.transform.origin = Vector3(gon.transform.origin.x, 2.25, gon.transform.origin.z)
 
-        # reset state for selecting hexagon to build
-        building_preview = null
-        new_tower_type = null
+    gon.tower_type = new_tower_type
+
+    Towers.apply_tower_effect(new_tower_type)
+    $'/root/Node2D/MainTower'.on_new_tower()
+
+    # reset state for selecting hexagon to build
+    building_preview = null
+    new_tower_type = null
 
 func start_building_tower(preview_node: MeshInstance, tower_type):
     building_preview = preview_node.duplicate()
