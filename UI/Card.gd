@@ -2,6 +2,7 @@ extends MeshInstance
 
 var idle_movement_factor = 0 + randf() * PI
 var idle_movement_speed = 0.4 + randf() * 0.1
+var preview_node: Spatial
 onready var initial_y = transform.origin.y
 onready var camera = $'../../Camera'
 onready var initial_scale = scale
@@ -19,6 +20,13 @@ func _process(dt):
     transform.origin.y = initial_y + sin(0.3 + idle_movement_factor * 0.5)
     self.rotation_degrees.z = 5 * sin(0.4 + idle_movement_factor * 0.5)
     self.rotation_degrees.y = -10 + 10 * sin(0.2 + idle_movement_factor)
+
+func add_preview(scene: Resource):
+    preview_node = scene.instance()
+    preview_node.transform.origin.z = 1
+    preview_node.transform = preview_node.transform.scaled(Vector3.ONE * 2)
+    preview_node.cast_shadow = SHADOW_CASTING_SETTING_OFF
+    add_child(preview_node)
 
 func _mouse_entered():
     scale = initial_scale * 1.05

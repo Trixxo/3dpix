@@ -1,6 +1,5 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Tower/PrismTower.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI/Card.gd" type="Script" id=2]
 [ext_resource path="res://UI/CardMat.tres" type="Material" id=3]
 
@@ -25,7 +24,3 @@ monitorable = false
 
 [node name="CollisionShape" type="CollisionShape" parent="Area"]
 shape = SubResource( 4 )
-
-[node name="Preview" parent="." instance=ExtResource( 1 )]
-transform = Transform( 2, 0, 0, 0, 1.85543, -0.746591, 0, 0.746591, 1.85543, 0.0286255, -0.0155983, 1.81594 )
-cast_shadow = 0

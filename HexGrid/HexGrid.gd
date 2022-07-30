@@ -1,7 +1,6 @@
 extends MultiMeshInstance
 
 var hexagon_scene = preload("Hexagon.tscn")
-var cube_scene = preload("res://Tower/PrismTower.tscn")
 
 var cellsize = Vector2(2.3, 2.3)
 var map_size = 1
@@ -84,11 +83,9 @@ func _mouse_exited_hexagon():
 func _mouse_clicked_hexagon(_cam, event, _click_pos, _click_normal, _shape_idx, gon):
     if event.is_action_pressed("game_select") and is_building_tower:
         is_building_tower = false
-        building_preview.queue_free()
-        var cube = cube_scene.instance()
-        cube.transform.origin = Vector3(gon.transform.origin.x, 2.25, gon.transform.origin.z)
-        get_tree().get_root().add_child(cube)
+        building_preview.transform.origin = Vector3(gon.transform.origin.x, 2.25, gon.transform.origin.z)
         $'/root/Node2D/MainTower'.on_new_tower()
+        building_preview = null
 
 func start_building_tower(preview_node: MeshInstance):
     is_building_tower = true
