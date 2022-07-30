@@ -95,6 +95,7 @@ func start_building_tower(preview_node: MeshInstance, tower_type):
     building_preview = preview_node.duplicate()
     building_preview.scale = Vector3.ONE
     building_preview.rotation_degrees = Vector3.ZERO
+    building_preview.cast_shadow = SHADOW_CASTING_SETTING_ON
     building_preview.hide()
     add_child(building_preview)
     new_tower_type = tower_type
