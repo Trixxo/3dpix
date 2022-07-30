@@ -8,10 +8,16 @@ var projectile_damage = 1 setget set_projectile_damage
 
 var experience = 0 setget set_experience
 
+var experience_sentinels = 1 setget set_experience_sentinels
+
 signal update
 
 func set_attack_speed(val):
     attack_speed = val
+    emit_signal("update")
+
+func set_experience_sentinels(val):
+    experience_sentinels = val
     emit_signal("update")
 
 func set_enemy_health(val):

@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Tower/Tower.gd" type="Script" id=1]
+
+[sub_resource type="SpatialMaterial" id=5]
+resource_local_to_scene = true
+flags_transparent = true
+params_diffuse_mode = 4
+params_specular_mode = 3
+albedo_color = Color( 1, 0.576471, 0.329412, 1 )
+roughness = 0.0
+
+[sub_resource type="SphereMesh" id=4]
+material = SubResource( 5 )
+radius = 0.4
+height = 0.8
+radial_segments = 16
+rings = 8
+
+[node name="ThreeSpheresTower" type="MeshInstance"]
+script = ExtResource( 1 )
+
+[node name="SentinelChild3" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.99458, 0, 0 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="SentinelChild4" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0691128, 1.15539, 0 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="SentinelChild1" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.668288, 0, -0.795261 )
+mesh = SubResource( 4 )
+material/0 = null
+
+[node name="SentinelChild2" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.55782, 0, 0.932142 )
+mesh = SubResource( 4 )
+material/0 = null
