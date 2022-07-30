@@ -27,6 +27,5 @@ monitorable = false
 shape = SubResource( 4 )
 
 [node name="Preview" parent="." instance=ExtResource( 1 )]
-transform = Transform( 2, 0, 0, 0, 1.85543, -0.746591, 0, 0.746591, 1.85543, 0, 0, 1.83024 )
+transform = Transform( 2, 0, 0, 0, 1.85543, -0.746591, 0, 0.746591, 1.85543, 0.0286255, -0.0155983, 1.81594 )
 cast_shadow = 0
-script = null

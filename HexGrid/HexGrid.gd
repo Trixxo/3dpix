@@ -88,6 +88,7 @@ func _mouse_clicked_hexagon(_cam, event, _click_pos, _click_normal, _shape_idx, 
         var cube = cube_scene.instance()
         cube.transform.origin = Vector3(gon.transform.origin.x, 2.25, gon.transform.origin.z)
         get_tree().get_root().add_child(cube)
+        $'/root/Node2D/MainTower'.on_new_tower()
 
 func start_building_tower(preview_node: MeshInstance):
     is_building_tower = true

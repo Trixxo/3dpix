@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://MainTower/MainTower.gd" type="Script" id=1]
+[ext_resource path="res://Tower/PrismTower.gd" type="Script" id=1]
 
 [sub_resource type="SpatialMaterial" id=2]
 resource_local_to_scene = true
@@ -13,7 +13,7 @@ roughness = 0.0
 material = SubResource( 2 )
 size = Vector3( 1, 1, 1 )
 
-[node name="Cube" type="MeshInstance"]
+[node name="Prism" type="MeshInstance"]
 mesh = SubResource( 1 )
 material/0 = null
 script = ExtResource( 1 )

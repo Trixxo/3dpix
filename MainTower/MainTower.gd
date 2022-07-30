@@ -11,25 +11,17 @@ var interpolation_factor = 0
 signal finished_interpolation
 
 func _ready():
-    # $AnimationPlayer3.play("spin")
-    # instance_cube()
-    if name == "MainTower":
-        origin_transform = transform
-        origin_rotation = transform.basis
-        _timer = Timer.new()
-        add_child(_timer)
+    origin_transform = transform
+    origin_rotation = transform.basis
+    _timer = Timer.new()
+    add_child(_timer)
 
-        _timer.connect("timeout", self, "instance_cube")
-        _timer.set_wait_time(1.0 / GlobalVars.attack_speed)
-        _timer.set_one_shot(false)
-        _timer.start()
-    else:
-        get_node("/root/Node2D/MainTower").on_new_tower()
+    _timer.connect("timeout", self, "instance_cube")
+    _timer.set_wait_time(1.0 / GlobalVars.attack_speed)
+    _timer.set_one_shot(false)
+    _timer.start()
 
 func _process(dt):
-    if not name == "MainTower":
-        rotation.y += dt
-
     if target_velocity != null:
         transform.basis = Basis(interpolate_quat(target_velocity, dt).get_euler())
 

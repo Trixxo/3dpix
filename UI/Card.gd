@@ -20,8 +20,6 @@ func _process(dt):
     self.rotation_degrees.z = 5 * sin(0.4 + idle_movement_factor * 0.5)
     self.rotation_degrees.y = -10 + 10 * sin(0.2 + idle_movement_factor)
 
-    $Preview.rotate(Vector3.UP, dt)
-
 func _mouse_entered():
     scale = initial_scale * 1.05
 
