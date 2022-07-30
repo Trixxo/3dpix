@@ -26,7 +26,6 @@ func _process(dt):
         transform.basis = Basis(interpolate_quat(target_velocity, dt).get_euler())
 
 func on_new_tower():
-    GlobalVars.attack_speed += 0.2
     _timer.set_wait_time(1.0 / GlobalVars.attack_speed)
 
 func instance_cube():

@@ -8,6 +8,16 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Reference",
+"class": "Towers",
+"language": "GDScript",
+"path": "res://Tower/Towers.gd"
+} ]
+_global_script_class_icons={
+"Towers": ""
+}
+
 [application]
 
 config/name="3D Pixel art test"
