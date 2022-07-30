@@ -1,0 +1,9 @@
+[gd_resource type="SpatialMaterial" format=2]
+
+[resource]
+resource_local_to_scene = true
+flags_transparent = true
+params_diffuse_mode = 4
+params_specular_mode = 3
+albedo_color = Color( 0.964706, 0.470588, 0.780392, 1 )
+roughness = 0.0

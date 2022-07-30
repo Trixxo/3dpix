@@ -50,14 +50,14 @@ class SortMan:
         return a.transform.origin.length() < b.transform.origin.length()
         
 func set_idle(val):
-    if $MeshInstance.idle:
-        $MeshInstance.idle = val
-        $MeshInstance2.idle = val
-        $MeshInstance3.idle = val
+    if $SentinelChild1.idle:
+        $SentinelChild1.idle = val
+        $SentinelChild2.idle = val
+        $SentinelChild3.idle = val
     else:
-        $MeshInstance.idle = val
-        $MeshInstance2.idle = val
-        $MeshInstance3.idle = val
+        $SentinelChild1.idle = val
+        $SentinelChild2.idle = val
+        $SentinelChild3.idle = val
 
 
 func find_target():
