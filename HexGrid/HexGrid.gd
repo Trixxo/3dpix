@@ -72,7 +72,7 @@ func create_hex_meshes_from_cells():
         add_child(freshgon)
 
 func _mouse_entered_hexagon(gon):
-    if is_instance_valid(building_preview):
+    if is_instance_valid(building_preview) and gon.tower_type == null:
         building_preview.transform.origin = gon.global_transform.origin + Vector3.UP * 2
         building_preview.show()
 
@@ -81,8 +81,10 @@ func _mouse_exited_hexagon():
         building_preview.hide()
 
 func _mouse_clicked_hexagon(_cam, event, _click_pos, _click_normal, _shape_idx, gon):
-    if event.is_action_pressed("game_select") and is_instance_valid(building_preview):
+    if event.is_action_pressed("game_select") and is_instance_valid(building_preview) and gon.tower_type == null:
         building_preview.transform.origin = Vector3(gon.transform.origin.x, 2.25, gon.transform.origin.z)
+
+        gon.tower_type = new_tower_type
 
         Towers.apply_tower_effect(new_tower_type)
         $'/root/Node2D/MainTower'.on_new_tower()
