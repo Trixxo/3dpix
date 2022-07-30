@@ -31,6 +31,7 @@ func add_preview(scene: Resource):
     preview_node = scene.instance()
     preview_node.transform.origin.z = 1
     preview_node.transform = preview_node.transform.scaled(Vector3.ONE * 2)
+    preview_node.rotation_degrees.x = 20
     preview_node.cast_shadow = SHADOW_CASTING_SETTING_OFF
     add_child(preview_node)
 
