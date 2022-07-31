@@ -1,7 +1,7 @@
 extends Node
 
 # enemy related
-var enemy_health := 5 setget set_enemy_health
+var enemy_health := 2 setget set_enemy_health
 
 # projectile related
 var attack_speed := 1.0 setget set_attack_speed

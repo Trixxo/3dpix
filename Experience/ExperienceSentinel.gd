@@ -69,6 +69,7 @@ func find_target():
     exp_orbs.sort_custom(SortMan, "enemy_sort_dist")
     var first_orb = exp_orbs[0]
     target = first_orb
+    target.picked_up = true
     target_vec = first_orb.global_transform.origin
     original_target_dist = target_vec.length()
     target.remove_from_group("experience_orbs")
