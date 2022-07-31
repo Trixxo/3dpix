@@ -48,6 +48,9 @@ func hit_target():
     sphere_explosion.get_node("Particles2").emitting = true
     var vec_to_target = target.global_transform.origin - global_transform.origin
     sphere_explosion.rotate_object_local(Vector3(0, 1, 0), atan2(vec_to_target.z, -vec_to_target.x))
+
+    var knockback_dir = Vector3(vec_to_target.x, 0, vec_to_target.z).normalized()
+    target.global_transform.origin += (knockback_dir * GlobalVars.knockback_force)
     if target.health <= 0:
         var experience = experience_scene.instance()
         experience.transform = target.transform

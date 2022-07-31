@@ -3,7 +3,8 @@ class_name Towers
 enum Type {
     Prism,
     Cube,
-    ThreeSpheres
+    ThreeSpheres,
+    Weight
 }
 
 static func scene_for_tower(tower_type) -> Resource:
@@ -14,6 +15,8 @@ static func scene_for_tower(tower_type) -> Resource:
             return preload("res://Tower/PrismTower.tscn")
         Type.ThreeSpheres:
             return preload("res://Tower/ThreeSpheresTower.tscn")
+        Type.Weight:
+            return preload("res://Tower/WeightTower.tscn")
     
     printerr("No scene for tower type defined: ", tower_type)
     return null
@@ -26,12 +29,11 @@ static func apply_tower_effect(tower_type) -> void:
     match tower_type:
         Type.Cube:
             GlobalVars.projectile_damage += 0.2
-            return
         Type.Prism:
             GlobalVars.attack_speed += 0.2
-            return
         Type.ThreeSpheres:
             GlobalVars.experience_sentinels += 1
-            return
-
-    printerr("No effect for tower type defined: ", tower_type)
+        Type.Weight:
+            GlobalVars.knockback_force += 1.0
+        _:
+            printerr("No effect for tower type defined: ", tower_type)

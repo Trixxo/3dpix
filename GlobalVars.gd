@@ -1,16 +1,22 @@
 extends Node
 
-var attack_speed = 1.0 setget set_attack_speed
-
 var enemy_health = 5 setget set_enemy_health
 
+# projectile related
+var attack_speed = 1.0 setget set_attack_speed
 var projectile_damage = 1 setget set_projectile_damage
+var knockback_force = 5.0 setget set_knockback_force
 
+# experience
 var experience = 0 setget set_experience
-
 var experience_sentinels = 1 setget set_experience_sentinels
 
+
 signal update
+
+func set_knockback_force(val):
+    knockback_force = val
+    emit_signal("update")
 
 func set_attack_speed(val):
     attack_speed = val
