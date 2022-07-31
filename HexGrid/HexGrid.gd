@@ -2,9 +2,13 @@ extends MultiMeshInstance
 
 var hexagon_scene = preload("Hexagon.tscn")
 
+const base_tower_offset = 2.25
+const tower_offset = 1.5
+
 var cellsize = Vector2(2.3, 2.3)
 var map_size = 1
-var hex_map = hexes_in_range(map_size)
+# Array of Vector2s containing hex positions
+var hex_map := hexes_in_range(map_size)
 var ground_bounds_top = []
 var ground_bounds_bottom = []
 var building_preview: MeshInstance
@@ -41,9 +45,10 @@ func create_hex_meshes_from_cells():
         add_child(freshgon)
 
 func _mouse_entered_hexagon(gon):
-    if not is_instance_valid(building_preview) or gon.tower_type != null: return
+    if not is_instance_valid(building_preview): return
 
-    building_preview.transform.origin = gon.global_transform.origin + Vector3.UP * 2
+    building_preview.transform.origin = gon.global_transform.origin \
+        + Vector3.UP * new_tower_height(gon.tower_types)
     building_preview.show()
 
 func _mouse_exited_hexagon():
@@ -54,19 +59,21 @@ func _mouse_exited_hexagon():
 func _mouse_clicked_hexagon(_cam, event, _click_pos, _click_normal, _shape_idx, gon):
     if (not event.is_action_pressed("game_select") 
             or not is_instance_valid(building_preview) 
-            or gon.tower_type != null 
             or new_tower_type == null):
         return 
 
-    building_preview.transform.origin = Vector3(gon.transform.origin.x, 2.25, gon.transform.origin.z)
+    building_preview.transform.origin = Vector3(gon.transform.origin.x, new_tower_height(gon.tower_types), gon.transform.origin.z)
 
-    gon.tower_type = new_tower_type
+    gon.tower_types.append(new_tower_type)
 
     Towers.apply_tower_effect(new_tower_type)
 
     # reset state for selecting hexagon to build
     building_preview = null
     new_tower_type = null
+
+func new_tower_height(existing_towers: Array) -> float:
+    return base_tower_offset + tower_offset * existing_towers.size()
 
 func start_building_tower(preview_node: MeshInstance, tower_type):
     building_preview = preview_node.duplicate()
