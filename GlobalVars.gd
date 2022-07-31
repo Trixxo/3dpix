@@ -2,7 +2,7 @@ extends Node
 
 var attack_speed = 1.0 setget set_attack_speed
 
-var enemy_health = 5 setget set_enemy_health
+var enemy_health = 2 setget set_enemy_health
 
 var projectile_damage = 1 setget set_projectile_damage
 

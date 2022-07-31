@@ -39,4 +39,4 @@ func _process(dt):
     # 	global_transform.origin += hit_dir.normalized() * 1.5
     # 	hit_anim_timer -= dt
 
-    global_transform = global_transform.translated((target - transform[3]).normalized() * 2 * dt)
+    global_transform = global_transform.translated((target - transform[3]).normalized() * 0.5 * dt)

@@ -1,21 +1,20 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Projectile/ParticleDamage.gd" type="Script" id=1]
-[ext_resource path="res://Enemy/EnemyMat.tres" type="Material" id=2]
+[ext_resource path="res://Particle.gd" type="Script" id=1]
 
 [sub_resource type="Curve" id=3]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=4]
+[sub_resource type="CurveTexture" id=11]
 curve = SubResource( 3 )
 
 [sub_resource type="ParticlesMaterial" id=5]
 spread = 83.53
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 10.0
-scale_curve = SubResource( 4 )
+scale_curve = SubResource( 11 )
 
-[sub_resource type="SpatialMaterial" id=7]
+[sub_resource type="SpatialMaterial" id=12]
 resource_local_to_scene = true
 params_diffuse_mode = 4
 params_specular_mode = 3
@@ -23,7 +22,7 @@ albedo_color = Color( 1.6, 0.24, 0.3, 1 )
 roughness = 0.0
 
 [sub_resource type="SphereMesh" id=6]
-material = SubResource( 7 )
+material = SubResource( 12 )
 radius = 0.4
 height = 0.8
 radial_segments = 4
@@ -37,10 +36,17 @@ emission_ring_height = 1.0
 emission_ring_axis = Vector3( 1, 0, 0 )
 gravity = Vector3( 0, 0, 0 )
 initial_velocity = 1.0
-scale_curve = SubResource( 4 )
+scale_curve = SubResource( 11 )
 
-[sub_resource type="SphereMesh" id=10]
-material = ExtResource( 2 )
+[sub_resource type="SpatialMaterial" id=13]
+resource_local_to_scene = true
+params_diffuse_mode = 4
+params_specular_mode = 3
+albedo_color = Color( 0.360784, 0.054902, 0.0392157, 1 )
+roughness = 0.0
+
+[sub_resource type="SphereMesh" id=14]
+material = SubResource( 13 )
 radius = 0.4
 height = 0.8
 radial_segments = 4
@@ -65,4 +71,4 @@ lifetime = 0.5
 one_shot = true
 explosiveness = 1.0
 process_material = SubResource( 8 )
-draw_pass_1 = SubResource( 10 )
+draw_pass_1 = SubResource( 14 )
