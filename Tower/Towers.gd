@@ -21,11 +21,32 @@ static func scene_for_tower(tower_type) -> Resource:
     printerr("No scene for tower type defined: ", tower_type)
     return null
 
-static func random_tower_type():
-    var keys = Type.keys()
-    return Type[keys[randi() % keys.size()]]
+# check wether the given type can be built on a hexagon on top of the given existing types already built.
+static func can_build_type(type: int, existing_types: Array) -> bool:
+    match type:
+        Type.Cube:
+            return existing_types.empty()
+        Type.Prism:
+            return existing_types.empty()
+        Type.ThreeSpheres:
+            return existing_types.empty()
+        Type.Weight:
+            return Type.Cube in existing_types
+        _:
+            printerr("No build condition for tower type defined: ", type)
+            return false
 
-static func apply_tower_effect(tower_type) -> void:
+# return all tower types that can be built on at least one of the hexagons.
+static func buildable_types(hexagons: Array) -> Array:
+    var available_types = []
+    for type in Type.values():
+        for hexagon in hexagons:
+            if can_build_type(type, hexagon.tower_types): 
+                available_types.append(type)
+                break
+    return available_types
+
+static func apply_tower_effect(tower_type: int) -> void:
     match tower_type:
         Type.Cube:
             GlobalVars.projectile_damage += 0.2

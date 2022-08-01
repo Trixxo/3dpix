@@ -2,6 +2,7 @@ extends Spatial
 
 var experience_needed := 5
 var show_cards := false setget set_show_cards
+onready var grid = $"/root/Node2D/HexGrid"
 
 func _ready():
     for card in get_children():
@@ -19,7 +20,6 @@ func _global_vars_updated():
         GlobalVars.experience -= experience_needed
 
 func _card_clicked(card: MeshInstance):
-    var grid = $"/root/Node2D/HexGrid"
     if grid.new_tower_type != null: return
 
     grid.start_building_tower(card.preview_node, card.tower_type)
@@ -27,10 +27,22 @@ func _card_clicked(card: MeshInstance):
 
 func set_show_cards(val):
     show_cards = val
+
     if show_cards:
+        # check if there are any build options to display
+        var buildable_types = Towers.buildable_types(get_tree().get_nodes_in_group("hexagons"))
+        if buildable_types.empty():
+            show_cards = false
+            return
+
+        # pick a random build option for each card
+        buildable_types.shuffle()
         for card in get_children():
-            card.tower_type = Towers.random_tower_type()
+            card.tower_type = buildable_types.pop_back()
+            if card.tower_type == null: continue
             card.set_preview(Towers.scene_for_tower(card.tower_type))
+
     for card in get_children():
+        if card.tower_type == null: continue
         card.animate_visibility(val)
         yield(get_tree().create_timer(0.1), "timeout")

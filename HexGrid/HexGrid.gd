@@ -47,7 +47,9 @@ func create_hex_meshes_from_cells():
         add_child(freshgon)
 
 func _mouse_entered_hexagon(gon):
-    if not is_instance_valid(building_preview): return
+    if (not is_instance_valid(building_preview) 
+            or not Towers.can_build_type(new_tower_type, gon.tower_types)): 
+        return
 
     building_preview.transform.origin = gon.global_transform.origin \
         + Vector3.UP * new_tower_height(gon.tower_types)
@@ -61,7 +63,8 @@ func _mouse_exited_hexagon():
 func _mouse_clicked_hexagon(_cam, event, _click_pos, _click_normal, _shape_idx, gon):
     if (not event.is_action_pressed("game_select") 
             or not is_instance_valid(building_preview) 
-            or new_tower_type == null):
+            or new_tower_type == null
+            or not Towers.can_build_type(new_tower_type, gon.tower_types)):
         return 
 
     building_preview.transform.origin = Vector3(gon.transform.origin.x, new_tower_height(gon.tower_types), gon.transform.origin.z)
