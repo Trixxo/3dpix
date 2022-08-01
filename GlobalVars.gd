@@ -5,7 +5,7 @@ var enemy_health := 2 setget set_enemy_health
 
 # projectile related
 var attack_speed := 1.0 setget set_attack_speed
-var projectile_damage := 1 setget set_projectile_damage
+var projectile_damage := 1.0 setget set_projectile_damage
 var knockback_force := 0.0 setget set_knockback_force
 
 # experience related
