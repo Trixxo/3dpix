@@ -27,7 +27,7 @@ func instance_enemy():
         add_child(enemy)
         enemy.global_transform[3] = Vector3(pos.x, 4, pos.y)
 
-    spawn_amount += 1.0
+    spawn_amount += 0.2
 
 func find_bounds():
     var camera = $"../Camera"
