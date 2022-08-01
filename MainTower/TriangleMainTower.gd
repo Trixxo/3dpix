@@ -12,8 +12,6 @@ var interpolation_factor = 0
 signal finished_interpolation
 
 func _ready():
-    add_to_group("main_towers")
-
     origin_transform = transform
     origin_rotation = transform.basis
 
@@ -48,7 +46,8 @@ func instance_cube():
         cube = cube_projectile_scene.instance()
         cube.transform.origin.y = 4
         cube.vel = GlobalVars.rand_vec_on_sphere() * cube.speed
-        cube.transform = cube.transform.translated(cube.vel.normalized() * (self.mesh.mid_height / 2.0))
+        # cube.transform = cube.transform.translated(cube.vel.normalized() * (self.mesh.mid_height / 2.0))
+        cube.transform = cube.transform.translated(cube.vel.normalized())
 
         target_velocity = cube.vel
 

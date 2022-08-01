@@ -10,7 +10,7 @@ enum Type {
 static func scene_for_tower(tower_type) -> Resource:
     match tower_type:
         Type.Cube:
-            return preload("res://Tower/CubeTower.tscn")
+            return preload("res://MainTower/TriangleMainTower.tscn")
         Type.Prism:
             return preload("res://Tower/PrismTower.tscn")
         Type.ThreeSpheres:
@@ -28,7 +28,8 @@ static func random_tower_type():
 static func apply_tower_effect(tower_type) -> void:
     match tower_type:
         Type.Cube:
-            GlobalVars.projectile_damage += 0.2
+            return
+            # GlobalVars.projectile_damage += 0.2
         Type.Prism:
             GlobalVars.attack_speed += 0.2
         Type.ThreeSpheres:
