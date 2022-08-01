@@ -27,7 +27,9 @@ func hexes_in_range(N : int) -> Array:
     for q in range(-N, N + 1):
         for r in range(-N, N + 1):
             for s in range(-N, N + 1):
-                if q + r + s == 0:
+                # q + r + s == 0: is part of the cube hexagonal grid
+                # q != 0 and r != 0 and s != 0: is not the tile in the absolute center
+                if (q + r + s == 0) and (q != 0 or r != 0 or s != 0):
                     results.append(Vector2(q, r))
     return results
 # Called when the node enters the scene tree for the first time.
