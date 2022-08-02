@@ -1,7 +1,6 @@
 extends Spatial
 
 var cube_projectile_scene = preload("res://Projectile/Projectile.tscn")
-var experience_sentinel_scene = preload("res://Experience/ExperienceSentinel.tscn")
 var target_velocity
 var _timer
 var attack_speed = GlobalVars.attack_speed
@@ -35,13 +34,6 @@ func _process(dt):
         transform.basis = Basis(interpolate_quat(target_velocity, dt).get_euler())
 
 func _global_vars_updated():
-    var existing_sentinels = get_tree().get_nodes_in_group("experience_sentinels").size()
-    var sentinels_to_spawn = GlobalVars.experience_sentinels - existing_sentinels
-    for _i in range(sentinels_to_spawn):
-        var experience_sentinel = experience_sentinel_scene.instance()
-        experience_sentinel.transform.origin.y = 1
-        get_tree().get_root().add_child(experience_sentinel)
-        
     _timer.set_wait_time(1.0 / GlobalVars.attack_speed)
 
 func instance_cube():
