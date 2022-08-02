@@ -22,8 +22,6 @@ var sorted_enemy_group
 func _ready():
     base_scale = scale
 
-    add_to_group("enemies")
-
 func play_hit_animation(dir):
     hit_anim_timer = 1
     hit_dir = dir
@@ -46,3 +44,11 @@ func _process(dt):
     # 	hit_anim_timer -= dt
 
     global_transform = global_transform.translated((target - transform[3]).normalized() * 0.5 * dt)
+
+    if (not is_in_group("enemies") 
+            and global_transform.origin.distance_to(Vector3(0, 0, 0)) <= GlobalVars.main_tower_range):
+        add_to_group("enemies")
+    elif (is_in_group("enemies") 
+            and global_transform.origin.distance_to(Vector3(0, 0, 0)) > GlobalVars.main_tower_range):
+        remove_from_group("enemies")
+    
