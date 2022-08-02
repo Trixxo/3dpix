@@ -2,19 +2,19 @@ extends Spatial
 
 onready var init_pos = global_transform[3]
 
-export var max_speed = 40.0
-var speed_factor = 0.6
-var minimum_speed = 0.9 * max_speed
-var speed = max_speed * speed_factor
+export var max_speed := 40.0
+var speed_factor := 0.6
+var minimum_speed := 0.9 * max_speed
+var speed := max_speed * speed_factor
 
-var vel = Vector3.ZERO
-var acc = Vector3.ZERO
-var max_steer_force = 50
-var steer_force = 0.2
+var vel := Vector3.ZERO
+var acc := Vector3.ZERO
+var max_steer_force := 50
+var steer_force := 0.2
 
 var damage = GlobalVars.projectile_damage
 
-var target = null
+var target = null setget set_target
 
 var enemy_scene = preload("res://Enemy/Enemy.tscn")
 var sphere_expolsion_scene = preload("ParticleDamage.tscn")
@@ -30,10 +30,15 @@ func _process(dt):
     # look_at(Vector3(1, 0, 0), Vector3.UP)
     # rotation.y = PI / 2.0
     transform.basis = Transform.IDENTITY.looking_at(vel, Vector3.UP).basis
-    global_transform = global_transform.translated(Vector3.FORWARD * vel.length() * dt)
         
-    if (target != null and is_instance_valid(target)):
-        if (global_transform[3].distance_to(target.global_transform[3]) <= 1):
+    if is_instance_valid(target):
+        var distance_to_target = global_transform[3].distance_to(target.global_transform[3])
+        # dont move further than the required distance to the target
+        var step = min(distance_to_target - 1, vel.length() * dt)
+
+        global_transform = global_transform.translated(Vector3.FORWARD * step)
+
+        if ( distance_to_target <= 2):
             hit_target()
     else:
         find_target()
@@ -68,11 +73,11 @@ func find_target():
     enemies_sorted.sort_custom(SortMan, "enemy_sort_dist")
     if not enemies_sorted.size() > 0: return
     var first_enemy = enemies_sorted[0]
-    target = first_enemy
-    target.effective_health -= damage
-    if target.effective_health <= 0:
-        target.remove_from_group("enemies")
+    self.target = first_enemy
 
+func set_target(val):
+    target = val
+    target.effective_health -= damage
 
 func seek() -> Vector3:
     var steer = Vector3.ZERO

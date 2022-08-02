@@ -1,6 +1,6 @@
 extends Spatial
 
-var experience_needed := 1
+var experience_needed := 3
 var show_cards := false setget set_show_cards
 var is_animating = false
 
