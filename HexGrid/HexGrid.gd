@@ -67,11 +67,17 @@ func _mouse_clicked_hexagon(_cam, event, _click_pos, _click_normal, _shape_idx, 
             or not Towers.can_build_type(new_tower_type, gon.tower_types)):
         return 
 
-    building_preview.transform.origin = Vector3(gon.transform.origin.x, new_tower_height(gon.tower_types), gon.transform.origin.z)
+    # if (new_tower_type == Towers.Type.Cube):
+    #     building_preview.add_to_group("main_towers")
+    #     var main_towers_amount = get_tree().get_nodes_in_group("main_towers").size()
+
+    #     building_preview.transform.origin = Vector3(0, 4 * main_towers_amount, 0)
+    # else:
+    #     building_preview.transform.origin = Vector3(gon.transform.origin.x, new_tower_height(gon.tower_types), gon.transform.origin.z)
 
     gon.tower_types.append(new_tower_type)
 
-    Towers.apply_tower_effect(new_tower_type)
+    Towers.apply_tower_effect(new_tower_type, get_tree())
 
     # reset state for selecting hexagon to build
     building_preview = null

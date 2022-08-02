@@ -31,6 +31,7 @@ func _process(dt):
 func set_preview(scene: Resource):
     if is_instance_valid(preview_node): preview_node.queue_free()
     preview_node = scene.instance()
+    # preview_node.set_script(null)
     preview_node.transform.origin.z = 1
     preview_node.transform = preview_node.transform.scaled(Vector3.ONE * 2)
     preview_node.rotation_degrees.x = 20

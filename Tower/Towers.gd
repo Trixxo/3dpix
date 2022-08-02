@@ -46,10 +46,11 @@ static func buildable_types(hexagons: Array) -> Array:
                 break
     return available_types
 
-static func apply_tower_effect(tower_type: int) -> void:
+static func apply_tower_effect(tower_type: int, tree: SceneTree) -> void:
     match tower_type:
         Type.Cube:
-            GlobalVars.projectile_damage += 0.2
+            var triangle_main_tower = preload("res://MainTower/TriangleMainTower.tscn").instance()
+            tree.get_root().add_child(triangle_main_tower)
         Type.Prism:
             GlobalVars.attack_speed += 0.2
         Type.ThreeSpheres:
