@@ -50,6 +50,7 @@ transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 2
 
 [node name="MainTower" parent="." instance=ExtResource( 7 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0 )
+visible = false
 mesh = SubResource( 4 )
 skeleton = NodePath("")
 

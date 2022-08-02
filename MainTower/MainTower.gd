@@ -8,6 +8,7 @@ var attack_speed = GlobalVars.attack_speed
 var origin_rotation
 var origin_transform
 var interpolation_factor = 0
+var height_offset = 0
 
 signal finished_interpolation
 
@@ -49,6 +50,7 @@ func instance_cube():
         cube.transform.origin.y = 4
         cube.vel = GlobalVars.rand_vec_on_sphere() * cube.speed
         cube.transform = cube.transform.translated(cube.vel.normalized() * (self.mesh.mid_height / 2.0))
+        cube.transform.origin.y += height_offset
 
         target_velocity = cube.vel
 

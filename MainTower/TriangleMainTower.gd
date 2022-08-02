@@ -8,10 +8,15 @@ var attack_speed = GlobalVars.attack_speed
 var origin_rotation
 var origin_transform
 var interpolation_factor = 0
+var height_offset = 4
 
 signal finished_interpolation
 
 func _ready():
+    add_to_group("main_towers")
+    var main_towers_amount = get_tree().get_nodes_in_group("main_towers").size()
+    transform.origin.y += main_towers_amount * 4
+    height_offset = transform.origin.y
     origin_transform = transform
     origin_rotation = transform.basis
 
@@ -47,6 +52,7 @@ func instance_cube():
         cube.transform.origin.y = 4
         cube.vel = GlobalVars.rand_vec_on_sphere() * cube.speed
         # cube.transform = cube.transform.translated(cube.vel.normalized() * (self.mesh.mid_height / 2.0))
+        cube.transform.origin.y = height_offset
         cube.transform = cube.transform.translated(cube.vel.normalized())
 
         target_velocity = cube.vel
@@ -55,7 +61,7 @@ func instance_cube():
         get_tree().get_root().add_child(cube)
     
 func interpolate_quat(target, dt):
-    var origin_quat = Quat(origin_rotation)
+    var origin_quat = Quat(origin_rotation.orthonormalized())
     var target_transform = Transform.IDENTITY.looking_at(target, Vector3(0, 1, 0))
     # target_transform = target_transform.rotated(target_transform.basis.x, -PI / 2.0)
     var target_quat = Quat(target_transform.basis)
