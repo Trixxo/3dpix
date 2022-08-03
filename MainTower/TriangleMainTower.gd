@@ -50,7 +50,6 @@ func instance_cube():
         cube.target = target_enemy
         cube.vel = target_dir * cube.speed
         cube.transform.origin.y = height_offset
-        print("new projectile, effective health ", target_enemy.effective_health)
 
         target_velocity = cube.vel
 
