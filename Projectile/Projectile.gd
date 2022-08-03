@@ -69,7 +69,8 @@ class SortMan:
         return a.transform.origin.length() < b.transform.origin.length()
 
 func find_target():
-    var enemies_sorted = get_tree().get_nodes_in_group("enemies")
+    var enemies = get_tree().get_nodes_in_group("enemies")
+    var enemies_sorted = ArrayExtra.filter_by_method(enemies, "can_attack")
     enemies_sorted.sort_custom(SortMan, "enemy_sort_dist")
     if not enemies_sorted.size() > 0: return
     var first_enemy = enemies_sorted[0]

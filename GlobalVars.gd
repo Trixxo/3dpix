@@ -7,7 +7,7 @@ var enemy_health := 2 setget set_enemy_health
 var attack_speed := 1.0 setget set_attack_speed
 var projectile_damage := 1.0 setget set_projectile_damage
 var knockback_force := 0.0 setget set_knockback_force
-var main_tower_range := 35 setget set_main_tower_range
+var main_tower_range := 50 setget set_main_tower_range
 
 # experience related
 var experience := 0 setget set_experience

@@ -38,7 +38,8 @@ func _global_vars_updated():
     _timer.set_wait_time(1.0 / GlobalVars.attack_speed * 0.5)
 
 func instance_cube():
-    var enemies = get_tree().get_nodes_in_group("enemies")
+    var all_enemies = get_tree().get_nodes_in_group("enemies")
+    var enemies = ArrayExtra.filter_by_method(all_enemies, "can_attack")
     if enemies.size() > 0 and target_velocity == null:
         var target_enemy = enemies[randi() % enemies.size()]
         var target_dir = (target_enemy.global_transform.origin - global_transform.origin).normalized()
@@ -49,6 +50,7 @@ func instance_cube():
         cube.target = target_enemy
         cube.vel = target_dir * cube.speed
         cube.transform.origin.y = height_offset
+        print("new projectile, effective health ", target_enemy.effective_health)
 
         target_velocity = cube.vel
 
