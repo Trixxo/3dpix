@@ -123,7 +123,7 @@ func _mouse_clicked_hexagon(_cam, event, _click_pos, _click_normal, _shape_idx, 
 
     gon.tower_types.append(new_tower_type)
 
-    Towers.apply_tower_effect(new_tower_type, get_tree())
+    Towers.apply_tower_effect(new_tower_type)
 
     # reset state for selecting hexagon to build
     building_preview = null

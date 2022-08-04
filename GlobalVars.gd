@@ -13,8 +13,19 @@ var main_tower_range := 50 setget set_main_tower_range
 var experience := 0 setget set_experience
 var experience_sentinels := 1 setget set_experience_sentinels
 
+var red_towers = 0
 
 signal update
+
+func color_increased(col):
+    if col == "red":
+        if red_towers == 0:
+            var triangle_main_tower = preload("res://MainTower/TriangleMainTower.tscn").instance()
+            get_tree().get_root().add_child(triangle_main_tower)
+            attack_speed = 0
+        red_towers += 1
+        attack_speed += 0.5
+        emit_signal("update")
 
 func set_main_tower_range(val):
     main_tower_range = val

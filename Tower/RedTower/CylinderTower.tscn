@@ -3,11 +3,13 @@
 [ext_resource path="res://Tower/Tower.gd" type="Script" id=1]
 [ext_resource path="res://Tower/RedTower/RedTowerMat.tres" type="Material" id=2]
 
-[sub_resource type="CubeMesh" id=1]
+[sub_resource type="CylinderMesh" id=1]
 material = ExtResource( 2 )
-size = Vector3( 1, 1, 1 )
+top_radius = 0.5
+bottom_radius = 0.5
+height = 1.0
 
-[node name="Cube" type="MeshInstance"]
+[node name="Cylinder" type="MeshInstance"]
 mesh = SubResource( 1 )
 material/0 = null
 script = ExtResource( 1 )
