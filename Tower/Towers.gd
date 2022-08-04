@@ -4,11 +4,14 @@ enum Type {
     Prism,
     Cube,
     ThreeSpheres,
-    Weight
+    Weight,
+    Cylinder,
 }
 
 static func scene_for_tower(tower_type) -> Resource:
     match tower_type:
+        Type.Cylinder:
+            return preload("res://Tower/RedTower/CylinderTower.tscn")
         Type.Cube:
             return preload("res://Tower/CubeTower.tscn")
         Type.Prism:
@@ -24,6 +27,8 @@ static func scene_for_tower(tower_type) -> Resource:
 # check wether the given type can be built on a hexagon on top of the given existing types already built.
 static func can_build_type(type: int, existing_types: Array) -> bool:
     match type:
+        Type.Cylinder:
+            return existing_types.empty()
         Type.Cube:
             return existing_types.empty()
         Type.Prism:
@@ -46,16 +51,17 @@ static func buildable_types(hexagons: Array) -> Array:
                 break
     return available_types
 
-static func apply_tower_effect(tower_type: int, tree: SceneTree) -> void:
+static func apply_tower_effect(tower_type: int) -> void:
     match tower_type:
         Type.Cube:
-            var triangle_main_tower = preload("res://MainTower/TriangleMainTower.tscn").instance()
-            tree.get_root().add_child(triangle_main_tower)
+            GlobalVars.color_increased("red")
         Type.Prism:
-            GlobalVars.attack_speed += 0.2
+            GlobalVars.color_increased("red")
         Type.ThreeSpheres:
             GlobalVars.experience_sentinels += 1
         Type.Weight:
             GlobalVars.knockback_force += 1.0
+        Type.Cylinder:
+            GlobalVars.color_increased("red")
         _:
             printerr("No effect for tower type defined: ", tower_type)
