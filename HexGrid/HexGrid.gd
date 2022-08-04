@@ -140,10 +140,3 @@ func start_building_tower(preview_node: MeshInstance, tower_type):
     building_preview.hide()
     add_child(building_preview)
     new_tower_type = tower_type
-
-
-static func delete_children(node):
-    for n in node.get_children():
-        if n.name != 'ProjectionCamera':
-            node.remove_child(n)
-            n.queue_free()
