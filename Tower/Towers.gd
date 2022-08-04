@@ -36,20 +36,33 @@ static func can_build_type(type: int, existing_types: Array) -> bool:
         Type.ThreeSpheres:
             return existing_types.empty()
         Type.Weight:
-            return Type.Cube in existing_types
+            return Type.Cube in existing_types or Type.Prism in existing_types or Type.Cylinder in existing_types
         _:
             printerr("No build condition for tower type defined: ", type)
             return false
 
 # return all tower types that can be built on at least one of the hexagons.
 static func buildable_types(hexagons: Array) -> Array:
+    # tower types that can only be built once
     var available_types = []
     for type in Type.values():
         for hexagon in hexagons:
-            if can_build_type(type, hexagon.tower_types): 
-                available_types.append(type)
-                break
+            if (type in get_unique_types() and not type in built_types(hexagons)) or not type in get_unique_types():
+                if can_build_type(type, hexagon.tower_types): 
+                    available_types.append(type)
+                    break
     return available_types
+
+static func get_unique_types():
+    return [Type.Cube, Type.Prism, Type.Cylinder]
+
+static func built_types(hexagons: Array) -> Array:
+    var built_types = []
+    for hexagon in hexagons:
+        for hex_type in hexagon.tower_types:
+            if not hex_type in built_types:
+                built_types.append(hex_type)
+    return built_types
 
 static func apply_tower_effect(tower_type: int) -> void:
     match tower_type:
