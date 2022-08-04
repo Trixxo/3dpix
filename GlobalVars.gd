@@ -22,8 +22,9 @@ func color_increased(col):
         if red_towers == 0:
             var triangle_main_tower = preload("res://MainTower/TriangleMainTower.tscn").instance()
             get_tree().get_root().add_child(triangle_main_tower)
+            attack_speed = 0
         red_towers += 1
-        attack_speed = red_towers * 0.2
+        attack_speed += 0.5
         emit_signal("update")
 
 func set_main_tower_range(val):
