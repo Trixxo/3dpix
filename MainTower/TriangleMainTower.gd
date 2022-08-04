@@ -7,6 +7,7 @@ var origin_rotation
 var origin_transform
 var interpolation_factor = 0
 var height_offset = 0
+var original_scale
 
 signal finished_interpolation
 
@@ -17,6 +18,7 @@ func _ready():
     height_offset = transform.origin.y
     origin_transform = transform
     origin_rotation = transform.basis
+    original_scale = scale
 
     _timer = Timer.new()
     add_child(_timer)
@@ -33,6 +35,7 @@ func _ready():
 func _process(dt):
     if target_velocity != null:
         transform.basis = Basis(interpolate_quat(target_velocity, dt).get_euler())
+        scale = original_scale
 
 func _global_vars_updated():
     _timer.set_wait_time(1.0 / GlobalVars.attack_speed * 0.5)
@@ -57,7 +60,7 @@ func instance_cube():
         get_tree().get_root().add_child(cube)
     
 func interpolate_quat(target, dt):
-    var origin_quat = Quat(origin_rotation)
+    var origin_quat = Quat(origin_rotation.orthonormalized())
     var target_transform = Transform.IDENTITY.looking_at(target, Vector3(0, 1, 0))
     var target_quat = Quat(target_transform.basis)
 
@@ -66,7 +69,7 @@ func interpolate_quat(target, dt):
         origin_rotation = transform.basis
         interpolation_factor = 0
         target_velocity = null
-        return Quat(transform.basis)
+        return Quat(transform.basis.orthonormalized())
     else:
         interpolation_factor += dt * GlobalVars.attack_speed * 4.5
         interpolation_factor = min(1, interpolation_factor)

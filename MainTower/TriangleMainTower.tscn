@@ -6,8 +6,7 @@
 resource_local_to_scene = true
 params_diffuse_mode = 4
 params_specular_mode = 3
-params_blend_mode = 1
-albedo_color = Color( 1.1, 1.1, 1.1, 1 )
+albedo_color = Color( 1, 0.0234375, 0.635727, 1 )
 roughness = 0.0
 
 [sub_resource type="ArrayMesh" id=1]
@@ -26,6 +25,7 @@ surfaces/0 = {
 }
 
 [node name="Cylinder" type="MeshInstance"]
+transform = Transform( 1.2, 0, 0, 0, 3, 0, 0, 0, 1.7, 0, 0, 0 )
 mesh = SubResource( 1 )
 material/0 = null
 script = ExtResource( 1 )
