@@ -14,20 +14,29 @@ func _ready():
     _timer = Timer.new()
     add_child(_timer)
 
-    _timer.connect("timeout", self, "instance_enemy")
-    _timer.set_wait_time(7.0)
-    _timer.set_one_shot(false)
-    _timer.start()
-    instance_enemy()
+    _timer.connect("timeout", self, "check_next_wave")
+    _timer.set_wait_time(1.0)
+    _timer.set_one_shot(true)
+    check_next_wave()
 
-func instance_enemy():
+# If there are no enemies left, spawn a new wave.
+func check_next_wave():
+    # check if it's time for a new wave already
+    if get_tree().get_nodes_in_group("enemies").size() > 0: 
+        # it's not time yet, check again later
+        _timer.start()
+        return
+    # wait at least a few seconds between waves to give the player some time to breathe
+    yield(get_tree().create_timer(3.0), "timeout")
     for _i in range(round(spawn_amount)):
         var enemy = enemy_scene.instance()
         var pos = rand_point_on_bounds()
         add_child(enemy)
         enemy.global_transform[3] = Vector3(pos.x, 4, pos.y)
 
-    spawn_amount += 0.4
+    spawn_amount += 4.0
+    # start checking for the next wave
+    _timer.start()
 
 func find_bounds():
     var camera = $"../Camera"
