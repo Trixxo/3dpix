@@ -9,6 +9,8 @@ var interpolation_factor = 0
 var height_offset = 0
 var original_scale
 
+var bonus_damage := 0.0
+
 signal finished_interpolation
 
 func _ready():
@@ -40,9 +42,13 @@ func _global_vars_updated(all_types, _new_type):
     for type in all_types:
         match Towers.color_for_tower(type):
             Towers.ColorGroup.Red:
-                bonus_attack_speed += 0.5
+                bonus_attack_speed += 1.5
+        
+        match type:
+            Towers.Type.Cylinder:
+                bonus_damage += 2.0
 
-    _timer.set_wait_time(1.0 / GlobalVars.attack_speed + bonus_attack_speed)
+    _timer.set_wait_time(1.0 / (GlobalVars.attack_speed + bonus_attack_speed))
 
 func instance_cube():
     var all_enemies = get_tree().get_nodes_in_group("enemies")
@@ -53,7 +59,7 @@ func instance_cube():
 
         var cube = cube_projectile_scene.instance()
         cube.max_speed = 150.0
-        cube.damage = GlobalVars.projectile_damage / 2
+        cube.damage = GlobalVars.projectile_damage / 2 + bonus_damage
         cube.target = target_enemy
         cube.vel = target_dir * cube.speed
         cube.transform.origin.y = height_offset

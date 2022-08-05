@@ -123,7 +123,7 @@ func _mouse_clicked_hexagon(_cam, event, _click_pos, _click_normal, _shape_idx, 
 
     gon.tower_types.append(new_tower_type)
 
-    var all_types = Towers.built_types(get_tree().get_nodes_in_group("hexagon"))
+    var all_types = Towers.built_types(get_tree().get_nodes_in_group("hexagons"))
     GlobalVars.tower_built(all_types, new_tower_type)
 
     # reset state for selecting hexagon to build
