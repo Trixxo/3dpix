@@ -8,6 +8,18 @@ enum Type {
     Cylinder,
 }
 
+enum ColorGroup {
+    Red,
+}
+
+static func color_for_tower(type):
+    match type:
+        Type.Cylinder, Type.Cube, Type.Prism:
+            return ColorGroup.Red
+        _:
+            printerr("No color for tower type defined: ", type)
+            return null
+
 static func scene_for_tower(tower_type) -> Resource:
     match tower_type:
         Type.Cylinder:
@@ -65,16 +77,13 @@ static func built_types(hexagons: Array) -> Array:
     return built_types
 
 static func apply_tower_effect(tower_type: int) -> void:
+    GlobalVars.color_increased(tower_type)
     match tower_type:
-        Type.Cube:
-            GlobalVars.color_increased("red")
-        Type.Prism:
-            GlobalVars.color_increased("red")
+        Type.Cube, Type.Prism, Type.Cylinder:
+            pass
         Type.ThreeSpheres:
             GlobalVars.experience_sentinels += 1
         Type.Weight:
             GlobalVars.knockback_force += 1.0
-        Type.Cylinder:
-            GlobalVars.color_increased("red")
         _:
             printerr("No effect for tower type defined: ", tower_type)
