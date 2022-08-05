@@ -12,6 +12,7 @@ var original_scale
 var bonus_damage := 0.0
 var bonus_knockback := 0.0
 var bonus_attack_speed := 0.0
+var bonus_stun_duration := 0.0
 
 signal finished_interpolation
 
@@ -32,7 +33,7 @@ func _ready():
     _timer.set_one_shot(false)
     _timer.start()
 
-    var _e = GlobalVars.connect('update', self, '_global_vars_updated')
+    var _e = GlobalVars.connect('tower_built', self, '_global_vars_updated')
 
 func _process(dt):
     if target_velocity != null:
@@ -53,6 +54,8 @@ func _global_vars_updated(all_types, _new_type):
                 bonus_attack_speed += 1.0
             Towers.Type.Cube:
                 bonus_knockback += 1.0
+            Towers.Type.Prism:
+                bonus_stun_duration += 0.5
 
     _timer.set_wait_time(1.0 / (GlobalVars.attack_speed + bonus_attack_speed))
 
@@ -67,6 +70,7 @@ func instance_cube():
         cube.max_speed = 150.0
         cube.damage = GlobalVars.projectile_damage / 2 + bonus_damage
         cube.knockback_force = GlobalVars.knockback_force + bonus_knockback
+        cube.stun_duration = bonus_stun_duration
         cube.target = target_enemy
         cube.vel = target_dir * cube.speed
         cube.transform.origin.y = height_offset

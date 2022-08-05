@@ -10,13 +10,16 @@ var health = GlobalVars.enemy_health
 
 var effective_health = health
 
-var hit_anim_timer = 0
+var hit_anim_timer := 0.0
 
-var hit_dir = Vector3.ZERO
+var hit_dir := Vector3.ZERO
 
-var base_scale = Vector3.ONE
+var base_scale := Vector3.ONE
 
 var sorted_enemy_group
+
+var is_stunned := false
+var stun_timer
 
 func _ready():
     base_scale = scale
@@ -26,6 +29,23 @@ func _ready():
 func play_hit_animation(dir):
     hit_anim_timer = 1
     hit_dir = dir
+
+func stun(duration: float):
+    if duration <= 0.0: return
+
+    is_stunned = true
+    base_scale.y = 0.7
+
+    stun_timer = Timer.new()
+    add_child(stun_timer)
+    stun_timer.connect("timeout", self, "stun_finished")
+    stun_timer.wait_time = duration
+    stun_timer.set_one_shot(true)
+    stun_timer.start()
+
+func stun_finished():
+    is_stunned = false
+    base_scale.y = 1.0
 
 func can_attack() -> bool:
     return (effective_health > 0
@@ -37,5 +57,8 @@ func _process(dt):
         hit_anim_timer -= dt * 5.0
     else:
         hit_anim_timer = 0
+        scale = base_scale
+
+    if is_stunned: return
 
     global_transform = global_transform.translated((target - transform[3]).normalized() * 0.5 * dt)

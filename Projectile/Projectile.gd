@@ -14,6 +14,7 @@ var steer_force := 0.2
 
 var damage = GlobalVars.projectile_damage
 var knockback_force = GlobalVars.knockback_force
+var stun_duration = 0.0
 
 var target = null setget set_target
 
@@ -57,6 +58,9 @@ func hit_target():
 
     var knockback_dir = Vector3(vec_to_target.x, 0, vec_to_target.z).normalized()
     target.global_transform.origin += (knockback_dir * knockback_force)
+    if stun_duration >= 0.0:
+        target.stun(stun_duration)
+
     if target.health <= 0:
         var experience = experience_scene.instance()
         experience.transform = target.transform

@@ -3,7 +3,7 @@ extends Spatial
 var experience_sentinel_scene = preload("res://Experience/ExperienceSentinel.tscn")
 
 func _ready():
-    var _e = GlobalVars.connect('update', self, '_global_vars_updated')
+    var _e = GlobalVars.connect('tower_built', self, '_global_vars_updated')
 
 func _global_vars_updated(_all_types, _new_type):
     var existing_sentinels = get_tree().get_nodes_in_group("experience_sentinels").size()

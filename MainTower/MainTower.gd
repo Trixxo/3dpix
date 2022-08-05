@@ -18,7 +18,7 @@ func _ready():
     origin_transform = transform
     origin_rotation = transform.basis
 
-    var _e = GlobalVars.connect('update', self, '_global_vars_updated')
+    var _e = GlobalVars.connect('tower_built', self, '_global_vars_updated')
 
     _timer = Timer.new()
     add_child(_timer)
