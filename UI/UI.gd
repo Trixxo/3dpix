@@ -9,7 +9,14 @@ onready var grid = $"/root/Node2D/HexGrid"
 func _ready():
     for card in get_children():
         card.connect("click", self, "_card_clicked", [card])
-        card.visible = show_cards
+        card.visible = false
+
+    # wait for initial hexagons to be spawned
+    # (the "hexagons" group is slow to change)
+    yield(get_tree().create_timer(0.5), "timeout")
+    # show cards for picking an initial tower
+    shuffle_cards()
+    self.show_cards = true
     var _e = GlobalVars.connect("experience_changed", self, "_global_vars_updated")
 
 func _unhandled_input(event: InputEvent):
@@ -48,7 +55,6 @@ func set_show_cards(val):
     show_cards = val
 
     var cards = get_children()
-    cards.invert()
     for card in cards:
         if card.tower_type == null: continue
         card.animate_visibility(val)

@@ -6,11 +6,11 @@
 [node name="UI" type="Spatial"]
 script = ExtResource( 2 )
 
-[node name="Card" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.138, 0 )
+[node name="Card3" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.495, 0 )
 
 [node name="Card2" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.215, 0 )
 
-[node name="Card3" parent="." instance=ExtResource( 1 )]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.495, 0 )
+[node name="Card" parent="." instance=ExtResource( 1 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.138, 0 )
