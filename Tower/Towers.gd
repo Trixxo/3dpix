@@ -17,7 +17,7 @@ static func color_for_tower(type):
     match type:
         Type.Cylinder, Type.Cube, Type.Prism:
             return ColorGroup.Red
-        Type.Weight:
+        Type.Weight, Type.ThreeSpheres:
             return ColorGroup.None
         _:
             printerr("No color for tower type defined: ", type)
