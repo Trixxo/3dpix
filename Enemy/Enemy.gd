@@ -21,10 +21,10 @@ var sorted_enemy_group
 export var move_speed := 2
 
 var is_stunned := false
-var stun_timer
+var stun_timer: Timer
 
 func _ready():
-    base_scale = scale
+    scale = base_scale
 
     add_to_group("enemies")
 
@@ -36,18 +36,19 @@ func stun(duration: float):
     if duration <= 0.0: return
 
     is_stunned = true
-    base_scale.y = 0.7
 
+    if is_instance_valid(stun_timer):
+        stun_timer.stop()
+        stun_timer.queue_free()
     stun_timer = Timer.new()
     add_child(stun_timer)
-    stun_timer.connect("timeout", self, "stun_finished")
+    var _e = stun_timer.connect("timeout", self, "stun_finished")
     stun_timer.wait_time = duration
     stun_timer.set_one_shot(true)
     stun_timer.start()
 
 func stun_finished():
     is_stunned = false
-    base_scale.y = 1.0
 
 func can_attack() -> bool:
     return (effective_health > 0
@@ -61,6 +62,8 @@ func _process(dt):
         hit_anim_timer = 0
         scale = base_scale
 
-    if is_stunned: return
+    if is_stunned: 
+        scale.y = base_scale.y * 0.7
+        return
 
     global_transform = global_transform.translated((target - transform[3]).normalized() * move_speed * dt)

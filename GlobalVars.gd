@@ -41,7 +41,7 @@ func tower_built(all_types: Array, type: int):
         Towers.Type.ThreeSpheres:
             GlobalVars.experience_sentinels += 1
         Towers.Type.Weight:
-            GlobalVars.knockback_force += 1.0
+            GlobalVars.attack_speed += 0.2
 
     emit_signal("tower_built", all_types, type)
 

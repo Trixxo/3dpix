@@ -118,7 +118,8 @@ func _mouse_clicked_hexagon(_cam, event, _click_pos, _click_normal, _shape_idx, 
 
     # if we're selecting a spot to build but are not allowed to build here,
     # do nothing
-    if not Towers.can_build_type(new_tower_type, gon.tower_types):
+    if (not Towers.can_build_type(new_tower_type, gon.tower_types)
+        or gon.is_locked):
         return
 
     gon.tower_types.append(new_tower_type)
