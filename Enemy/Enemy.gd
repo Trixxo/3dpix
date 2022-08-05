@@ -34,7 +34,6 @@ func stun(duration: float):
     if duration <= 0.0: return
 
     is_stunned = true
-    base_scale.y = 0.7
 
     stun_timer = Timer.new()
     add_child(stun_timer)
@@ -45,7 +44,6 @@ func stun(duration: float):
 
 func stun_finished():
     is_stunned = false
-    base_scale.y = 1.0
 
 func can_attack() -> bool:
     return (effective_health > 0
@@ -59,6 +57,8 @@ func _process(dt):
         hit_anim_timer = 0
         scale = base_scale
 
-    if is_stunned: return
+    if is_stunned: 
+        scale.y = base_scale.y * 0.7
+        return
 
     global_transform = global_transform.translated((target - transform[3]).normalized() * 0.5 * dt)
