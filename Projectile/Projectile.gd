@@ -13,6 +13,7 @@ var max_steer_force := 50
 var steer_force := 0.2
 
 var damage = GlobalVars.projectile_damage
+var knockback_force = GlobalVars.knockback_force
 
 var target = null setget set_target
 
@@ -55,7 +56,7 @@ func hit_target():
     sphere_explosion.rotate_object_local(Vector3(0, 1, 0), atan2(vec_to_target.z, -vec_to_target.x))
 
     var knockback_dir = Vector3(vec_to_target.x, 0, vec_to_target.z).normalized()
-    target.global_transform.origin += (knockback_dir * GlobalVars.knockback_force)
+    target.global_transform.origin += (knockback_dir * knockback_force)
     if target.health <= 0:
         var experience = experience_scene.instance()
         experience.transform = target.transform
