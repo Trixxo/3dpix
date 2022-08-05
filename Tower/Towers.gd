@@ -10,12 +10,15 @@ enum Type {
 
 enum ColorGroup {
     Red,
+    None
 }
 
 static func color_for_tower(type):
     match type:
         Type.Cylinder, Type.Cube, Type.Prism:
             return ColorGroup.Red
+        Type.Weight:
+            return ColorGroup.None
         _:
             printerr("No color for tower type defined: ", type)
             return null
@@ -75,15 +78,3 @@ static func built_types(hexagons: Array) -> Array:
             if not hex_type in built_types:
                 built_types.append(hex_type)
     return built_types
-
-static func apply_tower_effect(tower_type: int) -> void:
-    GlobalVars.color_increased(tower_type)
-    match tower_type:
-        Type.Cube, Type.Prism, Type.Cylinder:
-            pass
-        Type.ThreeSpheres:
-            GlobalVars.experience_sentinels += 1
-        Type.Weight:
-            GlobalVars.knockback_force += 1.0
-        _:
-            printerr("No effect for tower type defined: ", tower_type)

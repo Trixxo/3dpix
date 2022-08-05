@@ -29,16 +29,20 @@ func _ready():
     _timer.start()
 
     var _e = GlobalVars.connect('update', self, '_global_vars_updated')
-    # initial calculation
-    _global_vars_updated()
 
 func _process(dt):
     if target_velocity != null:
         transform.basis = Basis(interpolate_quat(target_velocity, dt).get_euler())
         scale = original_scale
 
-func _global_vars_updated():
-    _timer.set_wait_time(1.0 / GlobalVars.attack_speed * 0.5)
+func _global_vars_updated(all_types, _new_type):
+    var bonus_attack_speed = 0.0
+    for type in all_types:
+        match Towers.color_for_tower(type):
+            Towers.ColorGroup.Red:
+                bonus_attack_speed += 0.5
+
+    _timer.set_wait_time(1.0 / GlobalVars.attack_speed + bonus_attack_speed)
 
 func instance_cube():
     var all_enemies = get_tree().get_nodes_in_group("enemies")

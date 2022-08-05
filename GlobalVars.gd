@@ -1,60 +1,40 @@
 extends Node
 
 # enemy related
-var enemy_health := 2 setget set_enemy_health
+var enemy_health := 2
 
 # projectile related
-var attack_speed := 1.0 setget set_attack_speed
-var projectile_damage := 1.0 setget set_projectile_damage
-var knockback_force := 0.0 setget set_knockback_force
-var main_tower_range := 50 setget set_main_tower_range
+var attack_speed := 1.0
+var projectile_damage := 1.0
+var knockback_force := 0.0
+var main_tower_range := 50
 
 # experience related
-var experience := 0 setget set_experience
-var experience_sentinels := 1 setget set_experience_sentinels
+var experience := 0
+var experience_sentinels := 1
 
 var red_towers = 0
 
+# emitted when a new tower is built, with arguments:
+# 1. all towers built so far
+# 2. new tower built just now
 signal update
 
-func color_increased(type: int):
+func tower_built(all_types: Array, type: int):
     match Towers.color_for_tower(type):
         Towers.ColorGroup.Red:
             if red_towers == 0:
                 var triangle_main_tower = preload("res://MainTower/TriangleMainTower.tscn").instance()
                 get_tree().get_root().add_child(triangle_main_tower)
-                attack_speed = 0
             red_towers += 1
-            attack_speed += 0.5
-            emit_signal("update")
 
-func set_main_tower_range(val):
-    main_tower_range = val
-    emit_signal("update")
+    match type:
+        Towers.Type.ThreeSpheres:
+            GlobalVars.experience_sentinels += 1
+        Towers.Type.Weight:
+            GlobalVars.knockback_force += 1.0
 
-func set_knockback_force(val):
-    knockback_force = val
-    emit_signal("update")
-
-func set_attack_speed(val):
-    attack_speed = val
-    emit_signal("update")
-
-func set_experience_sentinels(val):
-    experience_sentinels = val
-    emit_signal("update")
-
-func set_enemy_health(val):
-    enemy_health = val
-    emit_signal("update")
-
-func set_projectile_damage(val):
-    projectile_damage = val
-    emit_signal("update")
-
-func set_experience(val):
-    experience = val
-    emit_signal("update")
+    emit_signal("update", all_types, type)
 
 static func clamp(vec: Vector3, length: float) -> Vector3:
     if (vec.length() > length):
