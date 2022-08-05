@@ -10,14 +10,14 @@ func _ready():
     for card in get_children():
         card.connect("click", self, "_card_clicked", [card])
         card.visible = show_cards
-    var _e = GlobalVars.connect("update", self, "_global_vars_updated")
+    var _e = GlobalVars.connect("experience_changed", self, "_global_vars_updated")
 
 func _unhandled_input(event: InputEvent):
     if event.is_action_released("debug_show_cards"):
         if not show_cards: shuffle_cards()
         self.show_cards = not show_cards
 
-func _global_vars_updated(_all_types, _new_type):
+func _global_vars_updated():
     if GlobalVars.experience >= experience_needed and not show_cards:
         shuffle_cards()
         self.show_cards = true
@@ -56,4 +56,4 @@ func set_show_cards(val):
 
     is_animating = false
     # check if the cards should open again
-    _global_vars_updated(null, null)
+    _global_vars_updated()

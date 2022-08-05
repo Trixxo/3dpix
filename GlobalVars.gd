@@ -10,7 +10,7 @@ var knockback_force := 0.0
 var main_tower_range := 50
 
 # experience related
-var experience := 0
+var experience := 0 setget set_experience
 var experience_sentinels := 1
 
 var red_towers = 0
@@ -18,7 +18,10 @@ var red_towers = 0
 # emitted when a new tower is built, with arguments:
 # 1. all towers built so far
 # 2. new tower built just now
-signal update
+signal tower_built
+
+# emitted when the experience amount changes.
+signal experience_changed
 
 func tower_built(all_types: Array, type: int):
     match Towers.color_for_tower(type):
@@ -34,7 +37,11 @@ func tower_built(all_types: Array, type: int):
         Towers.Type.Weight:
             GlobalVars.knockback_force += 1.0
 
-    emit_signal("update", all_types, type)
+    emit_signal("tower_built", all_types, type)
+
+func set_experience(val):
+    experience = val
+    emit_signal("experience_changed")
 
 static func clamp(vec: Vector3, length: float) -> Vector3:
     if (vec.length() > length):
