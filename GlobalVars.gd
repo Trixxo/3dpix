@@ -14,6 +14,7 @@ var experience := 0 setget set_experience
 var experience_sentinels := 1
 
 var red_towers = 0
+var blue_towers = 0
 
 # emitted when a new tower is built, with arguments:
 # 1. all towers built so far
@@ -27,9 +28,14 @@ func tower_built(all_types: Array, type: int):
     match Towers.color_for_tower(type):
         Towers.ColorGroup.Red:
             if red_towers == 0:
-                var triangle_main_tower = preload("res://MainTower/TriangleMainTower.tscn").instance()
-                get_tree().get_root().add_child(triangle_main_tower)
+                var new_main = preload("res://MainTower/TriangleMainTower.tscn").instance()
+                get_tree().get_root().add_child(new_main)
             red_towers += 1
+        Towers.ColorGroup.Blue:
+            if blue_towers == 0:
+                var new_main = preload("res://MainTower/BlueMainTower.tscn").instance()
+                get_tree().get_root().add_child(new_main)
+            blue_towers += 1
 
     match type:
         Towers.Type.ThreeSpheres:

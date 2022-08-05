@@ -18,6 +18,8 @@ var base_scale := Vector3.ONE
 
 var sorted_enemy_group
 
+export var move_speed := 2
+
 var is_stunned := false
 var stun_timer
 
@@ -61,4 +63,4 @@ func _process(dt):
 
     if is_stunned: return
 
-    global_transform = global_transform.translated((target - transform[3]).normalized() * 0.5 * dt)
+    global_transform = global_transform.translated((target - transform[3]).normalized() * move_speed * dt)

@@ -1,16 +1,10 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Tower/Tower.gd" type="Script" id=1]
-
-[sub_resource type="SpatialMaterial" id=5]
-resource_local_to_scene = true
-params_diffuse_mode = 4
-params_specular_mode = 3
-albedo_color = Color( 1, 0.576471, 0.329412, 1 )
-roughness = 0.0
+[ext_resource path="res://Tower/ThreeSpheresTower.tres" type="Material" id=2]
 
 [sub_resource type="SphereMesh" id=4]
-material = SubResource( 5 )
+material = ExtResource( 2 )
 radius = 0.4
 height = 0.8
 radial_segments = 16

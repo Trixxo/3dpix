@@ -6,10 +6,12 @@ enum Type {
     ThreeSpheres,
     Weight,
     Cylinder,
+    FlatSphere,
 }
 
 enum ColorGroup {
     Red,
+    Blue,
     None
 }
 
@@ -19,6 +21,8 @@ static func color_for_tower(type):
             return ColorGroup.Red
         Type.Weight, Type.ThreeSpheres:
             return ColorGroup.None
+        Type.FlatSphere:
+            return ColorGroup.Blue
         _:
             printerr("No color for tower type defined: ", type)
             return null
@@ -27,6 +31,8 @@ static func scene_for_tower(tower_type) -> Resource:
     match tower_type:
         Type.Cylinder:
             return preload("res://Tower/RedTower/CylinderTower.tscn")
+        Type.FlatSphere:
+            return preload("res://Tower/BlueTower/FlatSphereTower.tscn")
         Type.Cube:
             return preload("res://Tower/CubeTower.tscn")
         Type.Prism:
@@ -50,6 +56,8 @@ static func can_build_type(type: int, existing_types: Array) -> bool:
             return existing_types.empty()
         Type.ThreeSpheres:
             return existing_types.empty()
+        Type.FlatSphere:
+            return existing_types.empty()
         Type.Weight:
             return Type.Cube in existing_types or Type.Prism in existing_types or Type.Cylinder in existing_types
         _:
@@ -69,7 +77,7 @@ static func buildable_types(hexagons: Array) -> Array:
     return available_types
 
 static func get_unique_types():
-    return [Type.Cube, Type.Prism, Type.Cylinder]
+    return [Type.Cube, Type.Prism, Type.Cylinder, Type.FlatSphere]
 
 static func built_types(hexagons: Array) -> Array:
     var built_types = []
