@@ -2,6 +2,7 @@ extends Spatial
 
 var enemy_scene = preload("res://Enemy/Enemy.tscn")
 var spawn_amount = 1.0
+var boss_wave_chance = 0.1
 var bounds_top
 var bounds_bottom
 var _timer
@@ -28,8 +29,15 @@ func check_next_wave():
         return
     # wait at least a few seconds between waves to give the player some time to breathe
     yield(get_tree().create_timer(3.0), "timeout")
+
+    var is_boss_wave = randf() < boss_wave_chance
+
     for _i in range(round(spawn_amount)):
         var enemy = enemy_scene.instance()
+        if is_boss_wave: 
+            enemy.health *= 2
+            enemy.effective_health *= 2
+            enemy.base_scale *= 2
         var pos = rand_point_on_bounds()
         add_child(enemy)
         enemy.global_transform[3] = Vector3(pos.x, 4, pos.y)

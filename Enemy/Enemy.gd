@@ -19,10 +19,10 @@ var base_scale := Vector3.ONE
 var sorted_enemy_group
 
 var is_stunned := false
-var stun_timer
+var stun_timer: Timer
 
 func _ready():
-    base_scale = scale
+    scale = base_scale
 
     add_to_group("enemies")
 
@@ -35,9 +35,12 @@ func stun(duration: float):
 
     is_stunned = true
 
+    if is_instance_valid(stun_timer):
+        stun_timer.stop()
+        stun_timer.queue_free()
     stun_timer = Timer.new()
     add_child(stun_timer)
-    stun_timer.connect("timeout", self, "stun_finished")
+    var _e = stun_timer.connect("timeout", self, "stun_finished")
     stun_timer.wait_time = duration
     stun_timer.set_one_shot(true)
     stun_timer.start()
