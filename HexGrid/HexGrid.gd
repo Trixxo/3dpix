@@ -124,12 +124,16 @@ func _mouse_clicked_hexagon(_cam, event, _click_pos, _click_normal, _shape_idx, 
 
     gon.tower_types.append(new_tower_type)
 
-    var all_types = Towers.built_types(get_tree().get_nodes_in_group("hexagons"))
-    GlobalVars.tower_built(all_types, new_tower_type)
+    var just_built_type = new_tower_type
 
     # reset state for selecting hexagon to build
     building_preview = null
     new_tower_type = null
+
+    # notify other nodes that a new tower was built
+    var all_types = Towers.built_types(get_tree().get_nodes_in_group("hexagons"))
+    GlobalVars.tower_built(all_types, just_built_type)
+
 
 func new_tower_height(existing_towers: Array) -> float:
     return base_tower_offset + tower_offset * existing_towers.size()

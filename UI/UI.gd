@@ -11,13 +11,14 @@ func _ready():
         card.connect("click", self, "_card_clicked", [card])
         card.visible = false
 
+    var _e = GlobalVars.connect("experience_changed", self, "_experience_changed")
+    var _e2 = GlobalVars.connect("tower_built", self, "_tower_built")
+
     # wait for initial hexagons to be spawned
     # (the "hexagons" group is slow to change)
     yield(get_tree().create_timer(0.5), "timeout")
     # show cards for picking an initial tower
-    shuffle_cards()
-    self.show_cards = true
-    var _e = GlobalVars.connect("experience_changed", self, "_experience_changed")
+    GlobalVars.experience += experience_needed
 
 func _unhandled_input(event: InputEvent):
     if event.is_action_released("debug_show_cards"):
@@ -25,10 +26,15 @@ func _unhandled_input(event: InputEvent):
         self.show_cards = not show_cards
 
 func _experience_changed():
-    if GlobalVars.experience >= experience_needed and not show_cards:
+    if (GlobalVars.experience >= experience_needed 
+        and not show_cards 
+        and grid.new_tower_type == null):
+
         shuffle_cards()
         self.show_cards = true
-        GlobalVars.experience -= experience_needed
+
+func _tower_built(_all, _new):
+    GlobalVars.experience = GlobalVars.experience - experience_needed
 
 func _card_clicked(card: MeshInstance):
     if grid.new_tower_type != null: return
@@ -50,7 +56,7 @@ func shuffle_cards():
 
 
 func set_show_cards(val):
-    if is_animating or val == show_cards: 
+    if is_animating or show_cards == val:
         return
 
     is_animating = true
@@ -63,5 +69,3 @@ func set_show_cards(val):
         yield(get_tree().create_timer(0.1), "timeout")
 
     is_animating = false
-    # check if the cards should open again
-    _experience_changed()
