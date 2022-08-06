@@ -55,7 +55,7 @@ func _global_vars_updated(all_types, _new_type):
             Towers.Type.Cube:
                 bonus_knockback += 1.0
             Towers.Type.Prism:
-                bonus_stun_duration += 1.0
+                bonus_stun_duration += 0.5
 
     _timer.set_wait_time(1.0 / (GlobalVars.attack_speed + bonus_attack_speed))
 
