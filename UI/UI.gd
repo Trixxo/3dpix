@@ -17,14 +17,14 @@ func _ready():
     # show cards for picking an initial tower
     shuffle_cards()
     self.show_cards = true
-    var _e = GlobalVars.connect("experience_changed", self, "_global_vars_updated")
+    var _e = GlobalVars.connect("experience_changed", self, "_experience_changed")
 
 func _unhandled_input(event: InputEvent):
     if event.is_action_released("debug_show_cards"):
         if not show_cards: shuffle_cards()
         self.show_cards = not show_cards
 
-func _global_vars_updated():
+func _experience_changed():
     if GlobalVars.experience >= experience_needed and not show_cards:
         shuffle_cards()
         self.show_cards = true
@@ -50,7 +50,9 @@ func shuffle_cards():
 
 
 func set_show_cards(val):
-    if is_animating or val == show_cards: return
+    if is_animating or val == show_cards: 
+        return
+
     is_animating = true
     show_cards = val
 
@@ -62,4 +64,4 @@ func set_show_cards(val):
 
     is_animating = false
     # check if the cards should open again
-    _global_vars_updated()
+    _experience_changed()
