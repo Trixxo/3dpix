@@ -8,16 +8,18 @@ enum Type {
     Cylinder,
     FlatSphere,
     StretchedSphere,
+    Stick,
 }
 
 enum ColorGroup {
     Red,
     Blue,
-    None
+    Yellow,
+    None,
 }
 
 static func get_base_types():
-    return [Type.Cylinder, Type.Cube, Type.Prism, Type.FlatSphere, Type.StretchedSphere, Type.ThreeSpheres]
+    return [Type.Cylinder, Type.Cube, Type.Prism, Type.FlatSphere, Type.StretchedSphere, Type.ThreeSpheres, Type.Stick]
 
 static func get_upgrade_types() -> Array:
     return [Type.Weight]
@@ -26,10 +28,12 @@ static func color_for_tower(type):
     match type:
         Type.Cylinder, Type.Cube, Type.Prism:
             return ColorGroup.Red
-        Type.Weight, Type.ThreeSpheres:
-            return ColorGroup.None
         Type.FlatSphere, Type.StretchedSphere:
             return ColorGroup.Blue
+        Type.Stick:
+            return ColorGroup.Yellow
+        Type.Weight, Type.ThreeSpheres:
+            return ColorGroup.None
         _:
             printerr("No color for tower type defined: ", type)
             return null
@@ -46,6 +50,8 @@ static func scene_for_tower(tower_type) -> Resource:
             return preload("res://Tower/CubeTower.tscn")
         Type.Prism:
             return preload("res://Tower/PrismTower.tscn")
+        Type.Stick:
+            return preload("res://Tower/YellowTower/StickTower.tscn")
         Type.ThreeSpheres:
             return preload("res://Tower/ThreeSpheresTower.tscn")
         Type.Weight:
