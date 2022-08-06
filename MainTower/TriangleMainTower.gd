@@ -44,6 +44,7 @@ func _global_vars_updated(all_types, _new_type):
     bonus_attack_speed = 0.0
     bonus_knockback = 0.0
     bonus_damage = 0.0
+    bonus_stun_duration = 0.0
     for type in all_types:
         match Towers.color_for_tower(type):
             Towers.ColorGroup.Red:
