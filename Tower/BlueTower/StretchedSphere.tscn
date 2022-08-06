@@ -1,7 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Tower/Tower.gd" type="Script" id=1]
-[ext_resource path="res://MainTower/BlueTowerMat.tres" type="Material" id=2]
+[ext_resource path="res://Tower/BlueTower/BlueTowerMat.tres" type="Material" id=2]
 
 [sub_resource type="SphereMesh" id=1]
 material = ExtResource( 2 )
@@ -10,8 +10,15 @@ height = 0.5
 radial_segments = 16
 rings = 8
 
+[sub_resource type="SpatialMaterial" id=3]
+resource_local_to_scene = true
+params_diffuse_mode = 4
+params_specular_mode = 3
+albedo_color = Color( 0.5, 0.5, 1, 1 )
+roughness = 0.0
+
 [sub_resource type="SphereMesh" id=2]
-material = ExtResource( 2 )
+material = SubResource( 3 )
 radius = 0.4
 height = 0.8
 radial_segments = 16
