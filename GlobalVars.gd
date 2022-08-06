@@ -2,6 +2,7 @@ extends Node
 
 # enemy related
 var enemy_health := 2
+var enemy_flight_height := 4
 
 # projectile related
 var attack_speed := 1.0

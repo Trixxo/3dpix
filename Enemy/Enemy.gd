@@ -18,6 +18,8 @@ var base_scale := Vector3.ONE
 
 var sorted_enemy_group
 
+var size := 2
+
 export var move_speed := 2
 
 var is_stunned := false
