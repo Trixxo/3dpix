@@ -15,10 +15,10 @@ var experience_scene = preload("res://Experience/Experience.tscn")
 var elapsed = 0
 
 func _process(dt):
-    elapsed += dt
+    elapsed += dt * speed
 
-    global_transform.origin.x = cos(elapsed * speed) * max_range
-    global_transform.origin.z = sin(elapsed * speed) * max_range
+    global_transform.origin.x = cos(elapsed) * max_range
+    global_transform.origin.z = sin(elapsed) * max_range
     
     var enemies = get_tree().get_nodes_in_group("enemies")
     if enemies.size() > 0:
@@ -26,6 +26,8 @@ func _process(dt):
             if (enemy.global_transform.origin.length() < max_range + 2) and (global_transform.origin.distance_to(enemy.global_transform.origin) < enemy.size):
                 hit_target(enemy)
 
+func update_position(index):
+    elapsed = (2.0 * PI) / index
 
 func hit_target(target):
     target.play_hit_animation(target.global_transform.origin - global_transform.origin)

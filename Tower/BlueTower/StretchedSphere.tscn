@@ -25,11 +25,9 @@ script = ExtResource( 1 )
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0 )
 mesh = SubResource( 2 )
-skeleton = NodePath("../StretchedSphere")
 material/0 = null
 
 [node name="MeshInstance2" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0 )
 mesh = SubResource( 2 )
-skeleton = NodePath("../StretchedSphere")
 material/0 = null
