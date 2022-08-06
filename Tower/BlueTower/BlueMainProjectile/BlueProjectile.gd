@@ -23,7 +23,7 @@ func _process(dt):
     var enemies = get_tree().get_nodes_in_group("enemies")
     if enemies.size() > 0:
         for enemy in enemies:
-            if (enemy.global_transform.origin.length() < max_range + 2) and (global_transform.origin.distance_to(enemy.global_transform.origin) < 1):
+            if (enemy.global_transform.origin.length() < max_range + 2) and (global_transform.origin.distance_to(enemy.global_transform.origin) < enemy.size):
                 hit_target(enemy)
 
 
@@ -45,8 +45,6 @@ func hit_target(target):
         experience.transform = target.transform
         get_tree().get_root().add_child(experience)
         target.queue_free()
-
-    queue_free()
 
 class SortMan:
     static func enemy_sort_dist(a, b):

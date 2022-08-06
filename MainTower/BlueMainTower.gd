@@ -21,29 +21,21 @@ func _ready():
     origin_rotation = transform.basis
     original_scale = scale
 
-    instance_cube()
-
-    var _e = GlobalVars.connect('update', self, '_global_vars_updated')
+    var _e = GlobalVars.connect('tower_built', self, '_global_vars_updated')
 
 func _process(dt):
     scale = original_scale
 
 func _global_vars_updated(all_types, _new_type):
-    bonus_attack_speed = 0.0
-    bonus_knockback = 0.0
-    bonus_damage = 0.0
-    for type in all_types:
-        match Towers.color_for_tower(type):
-            Towers.ColorGroup.Red:
-                bonus_attack_speed += 0.3
-        
-        match type:
-            Towers.Type.Cylinder:
-                bonus_attack_speed += 1.0
-            Towers.Type.Cube:
-                bonus_knockback += 1.0
-
-    _timer.set_wait_time(1.0 / (GlobalVars.attack_speed + bonus_attack_speed))
+    pass
+    # bonus_attack_speed = 0.0
+    # bonus_knockback = 0.0
+    # bonus_damage = 0.0
+    match _new_type:
+        Towers.Type.FlatSphere:
+            instance_cube()
+        Towers.Type.StretchedSphere:
+            instance_cube()
 
 func instance_cube():
     # var all_enemies = get_tree().get_nodes_in_group("enemies")
