@@ -2,6 +2,7 @@ extends Spatial
 
 var experience_needed := 3
 var cards_visible := false setget set_cards_visible
+var should_cards_be_visible := false
 var is_animating = false
 
 onready var grid = $"/root/Node2D/HexGrid"
@@ -56,6 +57,8 @@ func shuffle_cards():
 
 
 func set_cards_visible(val):
+    should_cards_be_visible = val
+
     if is_animating or cards_visible == val:
         return
 
@@ -69,3 +72,7 @@ func set_cards_visible(val):
         yield(get_tree().create_timer(0.1), "timeout")
 
     is_animating = false
+
+    # if the value has changed while animating, re-set it to the value it should have
+    if should_cards_be_visible != cards_visible:
+        self.set_cards_visible(should_cards_be_visible)
