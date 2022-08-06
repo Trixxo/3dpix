@@ -39,7 +39,7 @@ func tower_built(all_types: Array, type: int):
                 get_tree().get_root().add_child(new_main)
             blue_towers += 1
         Towers.ColorGroup.Yellow:
-            if red_towers == 0:
+            if yellow_towers == 0:
                 var new_main = preload("res://MainTower/YellowMainTower.tscn").instance()
                 get_tree().get_root().add_child(new_main)
             yellow_towers += 1
