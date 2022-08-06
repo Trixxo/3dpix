@@ -26,8 +26,6 @@ var is_stunned := false
 var stun_timer: Timer
 
 func _ready():
-    scale = base_scale
-
     stun_timer = Timer.new()
     add_child(stun_timer)
     var _e = stun_timer.connect("timeout", self, "stun_finished")
@@ -53,14 +51,13 @@ func can_attack() -> bool:
         and global_transform.origin.distance_to(Vector3(0, 0, 0)) <= GlobalVars.main_tower_range)
 
 func _process(dt):
+    transform.basis = Basis().scaled(base_scale)
+
     if is_stunned: 
-        transform.basis = Basis() \
+        transform.basis = transform.basis \
             .rotated(Vector3.RIGHT, PI * 0.1) \
             .rotated(Vector3.UP, 8 * stun_timer.time_left)
         scale.y = base_scale.y * 0.4
-    else:
-        transform.basis = Basis()
-        scale.y = base_scale.y
 
     if hit_anim_timer > 0:
         scale.x = base_scale.x - sin(hit_anim_timer * PI) * 0.5
