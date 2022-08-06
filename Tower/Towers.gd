@@ -59,7 +59,7 @@ static func can_build_type(type: int, existing_types: Array) -> bool:
         Type.FlatSphere:
             return existing_types.empty()
         Type.Weight:
-            return Type.Cube in existing_types or Type.Prism in existing_types or Type.Cylinder in existing_types
+            return not existing_types.empty()
         _:
             printerr("No build condition for tower type defined: ", type)
             return false
