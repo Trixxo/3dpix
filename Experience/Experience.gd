@@ -35,4 +35,5 @@ func vanish():
         particle_vanish.set_emitting(true)
         particle_vanish.transform.origin = global_transform.origin
         get_tree().get_root().add_child(particle_vanish)
+        remove_from_group("experience_orbs")
         queue_free()
