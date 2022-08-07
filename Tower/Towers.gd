@@ -9,6 +9,7 @@ enum Type {
     FlatSphere,
     StretchedSphere,
     Stick,
+    Bomb,
 }
 
 enum ColorGroup {
@@ -19,7 +20,7 @@ enum ColorGroup {
 }
 
 static func get_base_types():
-    return [Type.Cylinder, Type.Cube, Type.Prism, Type.FlatSphere, Type.StretchedSphere, Type.ThreeSpheres, Type.Stick]
+    return [Type.Cylinder, Type.Cube, Type.Prism, Type.FlatSphere, Type.StretchedSphere, Type.Bomb, Type.Stick]
 
 static func get_upgrade_types() -> Array:
     return [Type.Weight]
@@ -30,7 +31,7 @@ static func color_for_tower(type):
             return ColorGroup.Red
         Type.FlatSphere, Type.StretchedSphere:
             return ColorGroup.Blue
-        Type.Stick:
+        Type.Stick, Type.Bomb:
             return ColorGroup.Yellow
         Type.Weight, Type.ThreeSpheres:
             return ColorGroup.None
@@ -52,6 +53,8 @@ static func scene_for_tower(tower_type) -> Resource:
             return preload("res://Tower/PrismTower.tscn")
         Type.Stick:
             return preload("res://Tower/YellowTower/StickTower.tscn")
+        Type.Bomb:
+            return preload("res://Tower/YellowTower/BombTower.tscn")
         Type.ThreeSpheres:
             return preload("res://Tower/ThreeSpheresTower.tscn")
         Type.Weight:
@@ -69,6 +72,8 @@ static func can_build_type(type: int, existing_types: Array) -> bool:
         match type:
             Type.Weight:
                 return not existing_types.empty()
+            Type.ThreeSpheres:
+                return existing_types.empty()
             _:
                 printerr("No build condition for tower type defined: ", type)
                 return false
@@ -79,7 +84,7 @@ static func buildable_types(hexagons: Array) -> Array:
     var available_types = []
     for type in Type.values():
         for hexagon in hexagons:
-            if (type in get_base_types() and not type in built_types(hexagons)) or not type in get_base_types():
+            if (type in get_base_types() and not type in built_types(hexagons)) or not type in get_base_types() or type == Type.ThreeSpheres:
                 if can_build_type(type, hexagon.tower_types): 
                     available_types.append(type)
                     break

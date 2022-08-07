@@ -9,6 +9,7 @@ var origin_rotation
 var origin_transform
 var interpolation_factor = 0
 var height_offset = 0
+var projectiles := 0
 
 signal finished_interpolation
 
@@ -29,7 +30,7 @@ func _ready():
     add_child(_timer)
 
     _timer.connect("timeout", self, "instance_cube")
-    _timer.set_wait_time(1.0 / GlobalVars.attack_speed)
+    _timer.set_wait_time(1.0 / (GlobalVars.attack_speed * .2))
     _timer.set_one_shot(false)
     _timer.start()
 
@@ -38,22 +39,35 @@ func _process(dt):
         transform.basis = Basis(interpolate_quat(target_velocity, dt).get_euler())
 
 func _global_vars_updated(all_types, _new_type):
-    _timer.set_wait_time(1.0 / GlobalVars.attack_speed)
+    var bonus_attack_speed := 0.0
+    var yellow_towers := 0
+    # _timer.set_wait_time(1.0 / GlobalVars.attack_speed)
 
+    for type in all_types:
+        match Towers.color_for_tower(type):
+            Towers.ColorGroup.Yellow:
+                yellow_towers += 1
+    
+    projectiles = yellow_towers * 2
+
+    _timer.set_wait_time(1.0 / ((GlobalVars.attack_speed * 0.2) + bonus_attack_speed))
+                
 func instance_cube():
-    var cube
-    var all_enemies = get_tree().get_nodes_in_group("enemies")
-    var enemies = ArrayExtra.filter_by_method(all_enemies, "can_attack")
-    if enemies.size() > 0 and target_velocity == null:
-        cube = cube_projectile_scene.instance()
-        cube.vel = GlobalVars.rand_vec_on_sphere() * cube.speed
-        cube.transform = cube.transform.translated(cube.vel.normalized() * (self.mesh.mid_height / 2.0))
-        cube.transform.origin.y = height_offset
+    for _i in range(projectiles):
+        var cube
+        var all_enemies = get_tree().get_nodes_in_group("enemies")
+        var enemies = ArrayExtra.filter_by_method(all_enemies, "can_attack")
+        if enemies.size() > 0 and target_velocity == null:
+            cube = cube_projectile_scene.instance()
+            cube.vel = GlobalVars.rand_vec_on_sphere() * cube.speed
+            cube.transform = cube.transform.translated(cube.vel.normalized() * (self.mesh.mid_height / 2.0))
+            cube.transform.origin.y = height_offset
 
-        target_velocity = cube.vel
+            target_velocity = cube.vel
 
-        yield(self, 'finished_interpolation')
-        get_tree().get_root().add_child(cube)
+            yield(self, 'finished_interpolation')
+            get_tree().get_root().add_child(cube)
+            target_velocity = null
     
 func interpolate_quat(target, dt):
     var origin_quat = Quat(origin_rotation)
@@ -65,9 +79,8 @@ func interpolate_quat(target, dt):
         emit_signal('finished_interpolation')
         origin_rotation = transform.basis
         interpolation_factor = 0
-        target_velocity = null
         return Quat(transform.basis)
     else:
-        interpolation_factor += dt * GlobalVars.attack_speed * 1.5
+        interpolation_factor += dt * GlobalVars.attack_speed * projectiles * 4.0
         interpolation_factor = min(1, interpolation_factor)
         return origin_quat.normalized().slerp(target_quat.normalized(), interpolation_factor)
