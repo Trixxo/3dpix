@@ -1,7 +1,8 @@
 extends Spatial
 
 var experience_needed := 3
-var show_cards := false setget set_show_cards
+var cards_visible := false setget set_cards_visible
+var should_cards_be_visible := false
 var is_animating = false
 
 onready var grid = $"/root/Node2D/HexGrid"
@@ -11,30 +12,36 @@ func _ready():
         card.connect("click", self, "_card_clicked", [card])
         card.visible = false
 
+    var _e = GlobalVars.connect("experience_changed", self, "_experience_changed")
+    var _e2 = GlobalVars.connect("tower_built", self, "_tower_built")
+
     # wait for initial hexagons to be spawned
     # (the "hexagons" group is slow to change)
     yield(get_tree().create_timer(0.5), "timeout")
     # show cards for picking an initial tower
-    shuffle_cards()
-    self.show_cards = true
-    var _e = GlobalVars.connect("experience_changed", self, "_global_vars_updated")
+    GlobalVars.experience += experience_needed
 
 func _unhandled_input(event: InputEvent):
     if event.is_action_released("debug_show_cards"):
-        if not show_cards: shuffle_cards()
-        self.show_cards = not show_cards
+        if not cards_visible: shuffle_cards()
+        self.cards_visible = not cards_visible
 
-func _global_vars_updated():
-    if GlobalVars.experience >= experience_needed and not show_cards:
+func _experience_changed():
+    if (GlobalVars.experience >= experience_needed 
+        and not cards_visible 
+        and grid.new_tower_type == null):
+
         shuffle_cards()
-        self.show_cards = true
-        GlobalVars.experience -= experience_needed
+        self.cards_visible = true
+
+func _tower_built(_all, _new):
+    GlobalVars.experience = GlobalVars.experience - experience_needed
 
 func _card_clicked(card: MeshInstance):
     if grid.new_tower_type != null: return
 
     grid.start_building_tower(card.preview_node, card.tower_type)
-    self.show_cards = false
+    self.cards_visible = false
 
 # Set a new random upgrade type for each card.
 func shuffle_cards():
@@ -49,10 +56,14 @@ func shuffle_cards():
         card.set_preview(Towers.scene_for_tower(card.tower_type))
 
 
-func set_show_cards(val):
-    if is_animating or val == show_cards: return
+func set_cards_visible(val):
+    should_cards_be_visible = val
+
+    if is_animating or cards_visible == val:
+        return
+
     is_animating = true
-    show_cards = val
+    cards_visible = val
 
     var cards = get_children()
     for card in cards:
@@ -61,5 +72,7 @@ func set_show_cards(val):
         yield(get_tree().create_timer(0.1), "timeout")
 
     is_animating = false
-    # check if the cards should open again
-    _global_vars_updated()
+
+    # if the value has changed while animating, re-set it to the value it should have
+    if should_cards_be_visible != cards_visible:
+        self.set_cards_visible(should_cards_be_visible)

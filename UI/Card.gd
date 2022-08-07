@@ -49,6 +49,8 @@ func _area_input_event(_cam, event, _position, _normal, _shape_index):
         emit_signal("click")
 
 func animate_visibility(visible):
+    if is_animating: return
+
     is_animating = true
     if visible:
         $AnimationPlayer.play("Appear")

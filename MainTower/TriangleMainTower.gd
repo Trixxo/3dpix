@@ -44,6 +44,7 @@ func _global_vars_updated(all_types, _new_type):
     bonus_attack_speed = 0.0
     bonus_knockback = 0.0
     bonus_damage = 0.0
+    bonus_stun_duration = 0.0
     for type in all_types:
         match Towers.color_for_tower(type):
             Towers.ColorGroup.Red:
@@ -81,8 +82,12 @@ func instance_cube():
         get_tree().get_root().add_child(cube)
     
 func interpolate_quat(target, dt):
+    # if target is the origin, `looking_at` will crash.
+    # there's no reasonable way to handle this, so just return.
+    if target == Vector3.ZERO: return
+
     var origin_quat = Quat(origin_rotation.orthonormalized())
-    var target_transform = Transform.IDENTITY.looking_at(target, Vector3(0, 1, 0))
+    var target_transform = Transform.IDENTITY.looking_at(target, Vector3.UP)
     var target_quat = Quat(target_transform.basis)
 
     if ((-transform.basis.z.normalized()).distance_to(target.normalized())) < 0.1:
