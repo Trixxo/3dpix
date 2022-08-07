@@ -68,6 +68,10 @@ func find_target():
 
     exp_orbs.sort_custom(SortMan, "enemy_sort_dist")
     var first_orb = exp_orbs[0]
+
+    if first_orb.vanished == true:
+        find_target()
+
     target = first_orb
     target.picked_up = true
     target_vec = first_orb.global_transform.origin

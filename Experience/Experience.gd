@@ -7,6 +7,7 @@ extends MeshInstance
 
 var elapsed = 0
 var picked_up
+var vanished = false
 var _timer
 var particle_vanish_scene = preload("ParticleVanish.tscn")
 
@@ -17,6 +18,7 @@ func _ready():
     add_child(_timer)
     
     _timer.connect("timeout", self, "vanish")
+    _timer.one_shot = true
     _timer.set_wait_time(0.5)
     _timer.start()
 
@@ -28,6 +30,7 @@ func _process(dt):
 func vanish():
     if (!picked_up):
         # yield(get_tree().create_timer(4.0), "timeout")
+        vanished = true
         var particle_vanish = particle_vanish_scene.instance()
         particle_vanish.set_emitting(true)
         particle_vanish.transform.origin = global_transform.origin
