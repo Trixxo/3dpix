@@ -9,8 +9,35 @@ script = ExtResource( 2 )
 [node name="Card3" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.495, 0 )
 
+[node name="Label" type="Label3D" parent="Card3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 2.43607 )
+pixel_size = 0.005
+fixed_size = true
+modulate = Color( 0, 0, 0, 1 )
+text = "+1 BULLET"
+autowrap = true
+width = 150.0
+
 [node name="Card2" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.215, 0 )
 
+[node name="Label" type="Label3D" parent="Card2"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.4774, 2.43607 )
+pixel_size = 0.005
+fixed_size = true
+modulate = Color( 0, 0, 0, 1 )
+text = "+1 BULLET"
+autowrap = true
+width = 150.0
+
 [node name="Card" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.138, 0 )
+
+[node name="Label" type="Label3D" parent="Card"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.02841, 2.43607 )
+pixel_size = 0.005
+fixed_size = true
+modulate = Color( 0, 0, 0, 1 )
+text = "+1 BULLET"
+autowrap = true
+width = 150.0

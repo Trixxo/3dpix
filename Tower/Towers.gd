@@ -25,6 +25,30 @@ static func get_base_types():
 static func get_upgrade_types() -> Array:
     return [Type.Weight]
 
+static func description_for_tower(tower_type) -> String:
+    match tower_type:
+        Type.Cylinder:
+            return "asdf1"
+        Type.FlatSphere:
+            return "asdf2"
+        Type.StretchedSphere:
+            return "asdf3"
+        Type.Cube:
+            return "asdf4"
+        Type.Prism:
+            return "asdf5"
+        Type.Stick:
+            return "asdf6"
+        Type.Bomb:
+            return "asdf7"
+        Type.ThreeSpheres:
+            return "asdf8"
+        Type.Weight:
+            return "asdf9"
+        _:
+            printerr("no description for tower: ", tower_type)
+            return ""
+
 static func color_for_tower(type):
     match type:
         Type.Cylinder, Type.Cube, Type.Prism:
