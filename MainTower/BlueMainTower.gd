@@ -26,7 +26,7 @@ func _ready():
 
     var _e = GlobalVars.connect('tower_built', self, '_global_vars_updated')
 
-func _process(dt):
+func _process(_dt):
     scale = original_scale
 
 func _global_vars_updated(all_types, _new_type):
