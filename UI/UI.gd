@@ -54,6 +54,7 @@ func shuffle_cards():
         card.tower_type = buildable_types.pop_back()
         if card.tower_type == null: continue
         card.set_preview(Towers.scene_for_tower(card.tower_type))
+        card.get_node("Label").text = Towers.description_for_tower(card.tower_type)
 
 
 func set_cards_visible(val):

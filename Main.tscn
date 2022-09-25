@@ -44,7 +44,6 @@ transform = Transform( 60, 0, 0, 0, 60, 0, 0, 0, 60, 0, 0, 0 )
 transform = Transform( 5.97065, 0, 0, 0, 0.999999, 0, 0, 0, 5.97065, 0, -0.0157749, 0 )
 mesh = SubResource( 1 )
 skeleton = NodePath("")
-material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="StaticBody"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0 )
