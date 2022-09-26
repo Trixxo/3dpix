@@ -29,25 +29,25 @@ static func get_upgrade_types() -> Array:
 static func description_for_tower(tower_type) -> String:
     match tower_type:
         Type.Cylinder:
-            return "asdf1"
+            return "+1 ATTACK SPEED"
         Type.FlatSphere:
-            return "asdf2"
+            return "+1 PROJECTILE"
         Type.StretchedSphere:
-            return "asdf3"
+            return "+1 PROJECTILE"
         Type.Cube:
-            return "asdf4"
+            return "KNOCKS ENEMIES BACK"
         Type.Prism:
-            return "asdf5"
+            return "STUNS ENEMIES"
         Type.Stick:
-            return "asdf6"
+            return "+1 PROJECTILE"
         Type.Bomb:
-            return "asdf7"
+            return "+1 PROJECTILE"
         Type.ThreeSpheres:
-            return "asdf8"
+            return "+1 EXPERIENCE SENTINEL"
         Type.Weight:
-            return "towers go brrr"
+            return "BONUS ATTACK SPEED FOR ALL"
         Type.Lightning:
-            return "Chain Ligntning BOOM"
+            return "CHAIN LIGHTNING BOOM"
         _:
             printerr("no description for tower: ", tower_type)
             return ""

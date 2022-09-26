@@ -1,6 +1,7 @@
 extends Spatial
 
-var enemy_scene = preload("res://Enemy/Enemy.tscn")
+var normal_enemy_scene = preload("res://Enemy/Enemy.tscn")
+var chonk_enemy_scene = preload("res://Enemy/EnemyChonk.tscn")
 var spawn_amount = 1.0
 var boss_wave_chance = 0.1
 var bounds_top
@@ -31,9 +32,15 @@ func check_next_wave():
     yield(get_tree().create_timer(3.0), "timeout")
 
     var is_boss_wave = randf() < boss_wave_chance
+    # var is_normal_spawn = randf() < 0.5
 
     for _i in range(round(spawn_amount)):
-        var enemy = enemy_scene.instance()
+        var is_chonk_spawn = randf() < 0.5
+        var enemy
+        if is_chonk_spawn:
+            enemy = chonk_enemy_scene.instance()
+        else:
+            enemy = normal_enemy_scene.instance()
         if is_boss_wave: 
             enemy.health *= 2
             enemy.effective_health *= 2

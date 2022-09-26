@@ -17,5 +17,4 @@ is_hemisphere = true
 
 [node name="MeshInstance" type="MeshInstance"]
 mesh = SubResource( 1 )
-material/0 = null
 script = ExtResource( 1 )

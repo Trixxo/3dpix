@@ -37,6 +37,8 @@ func _ready():
 func _process(dt):
     if target_velocity != null:
         transform.basis = Basis(interpolate_quat(target_velocity, dt).get_euler())
+    else:
+        idle_movement(dt)
 
 func _global_vars_updated(all_types, _new_type):
     var bonus_attack_speed := 0.0
@@ -51,6 +53,10 @@ func _global_vars_updated(all_types, _new_type):
     projectiles = yellow_towers * 2
 
     _timer.set_wait_time(1.0 / ((GlobalVars.attack_speed * 0.2) + bonus_attack_speed))
+
+func idle_movement(dt):
+    rotation.y += 0.3 * dt
+    rotation.x += 0.3 * dt
                 
 func instance_cube():
     for _i in range(projectiles):
@@ -60,10 +66,13 @@ func instance_cube():
         if enemies.size() > 0 and target_velocity == null:
             cube = cube_projectile_scene.instance()
             cube.vel = GlobalVars.rand_vec_on_sphere() * cube.speed
-            cube.transform = cube.transform.translated(cube.vel.normalized() * (self.mesh.mid_height / 2.0))
+            cube.transform = cube.transform.translated(cube.vel.normalized() * .5)
             cube.transform.origin.y = height_offset
 
             target_velocity = cube.vel
+
+            origin_transform = transform
+            origin_rotation = transform.basis
 
             yield(self, 'finished_interpolation')
             get_tree().get_root().add_child(cube)
@@ -81,6 +90,6 @@ func interpolate_quat(target, dt):
         interpolation_factor = 0
         return Quat(transform.basis)
     else:
-        interpolation_factor += dt * GlobalVars.attack_speed * projectiles * 4.0
+        interpolation_factor += dt * GlobalVars.attack_speed * projectiles * 2.0
         interpolation_factor = min(1, interpolation_factor)
         return origin_quat.normalized().slerp(target_quat.normalized(), interpolation_factor)
