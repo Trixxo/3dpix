@@ -142,7 +142,7 @@ gradient = SubResource( 5 )
 [sub_resource type="ShaderMaterial" id=4]
 resource_local_to_scene = true
 shader = SubResource( 3 )
-shader_param/albedo = Color( 0.4, 0.13, 1.5, 1 )
+shader_param/albedo = Color( 0.823529, 0.792157, 0.964706, 1 )
 shader_param/specular = 0.5
 shader_param/metallic = 0.0
 shader_param/roughness = 0.0
@@ -163,5 +163,4 @@ height = 1.0
 
 [node name="Spatial" type="MeshInstance"]
 mesh = SubResource( 2 )
-material/0 = null
 script = ExtResource( 2 )
