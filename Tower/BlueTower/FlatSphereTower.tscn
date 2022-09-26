@@ -11,5 +11,4 @@ rings = 8
 
 [node name="FlatSphere" type="MeshInstance"]
 mesh = SubResource( 1 )
-material/0 = null
 script = ExtResource( 1 )

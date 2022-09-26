@@ -15,6 +15,7 @@ var steer_force := 0.2
 var damage = GlobalVars.projectile_damage
 var knockback_force = GlobalVars.knockback_force
 var stun_duration = 0.0
+var bounce_count: int = 0 setget set_bounce_count
 
 var target = null setget set_target
 
@@ -28,12 +29,10 @@ func _process(dt):
     acc += seek()
     vel += acc * dt
     vel = GlobalVars.clamp(vel, speed)
-    # rotation = vel
-    # look_at(Vector3(1, 0, 0), Vector3.UP)
-    # rotation.y = PI / 2.0
-    transform.basis = Transform.IDENTITY.looking_at(vel, Vector3.UP).basis
         
     if is_instance_valid(target):
+        transform.basis = Transform.IDENTITY.looking_at(vel, Vector3.UP).basis
+
         var distance_to_target = global_transform[3].distance_to(target.global_transform[3])
         # dont move further than the required distance to the target
         var step = min(distance_to_target - 1, vel.length() * dt)
@@ -67,19 +66,30 @@ func hit_target():
         get_tree().get_root().add_child(experience)
         target.queue_free()
 
-    queue_free()
+    if bounce_count > 0:
+        bounce_count -= 1
+        find_other_target()
+    else:
+        queue_free()
 
 class SortMan:
     static func enemy_sort_dist(a, b):
         return a.transform.origin.length() < b.transform.origin.length()
 
-func find_target():
+func find_other_target():
+    find_target(self.target)
+
+# `other_than_this_enemy`: optional parameter, if specified,
+# try to find a different target than that enemy
+func find_target(other_than_this_enemy = null):
     var enemies = get_tree().get_nodes_in_group("enemies")
     var enemies_sorted = ArrayExtra.filter_by_method(enemies, "can_attack")
     enemies_sorted.sort_custom(SortMan, "enemy_sort_dist")
     if not enemies_sorted.size() > 0: return
-    var first_enemy = enemies_sorted[0]
-    self.target = first_enemy
+    for enemy in enemies_sorted:
+        if enemy != other_than_this_enemy:
+            self.target = enemy
+            return
 
 func set_target(val):
     target = val
@@ -100,3 +110,6 @@ func update_speed() -> float:
 
 func current_max_distance(target_position: Vector3) -> float:
     return (target_position - init_pos).length()
+
+func set_bounce_count(val: int):
+    bounce_count = int(max(0, val))

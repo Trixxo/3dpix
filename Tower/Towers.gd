@@ -10,6 +10,7 @@ enum Type {
     StretchedSphere,
     Stick,
     Bomb,
+    Lightning
 }
 
 enum ColorGroup {
@@ -20,7 +21,7 @@ enum ColorGroup {
 }
 
 static func get_base_types():
-    return [Type.Cylinder, Type.Cube, Type.Prism, Type.FlatSphere, Type.StretchedSphere, Type.Bomb, Type.Stick]
+    return [Type.Cylinder, Type.Cube, Type.Prism, Type.FlatSphere, Type.StretchedSphere, Type.Bomb, Type.Stick, Type.Lightning]
 
 static func get_upgrade_types() -> Array:
     return [Type.Weight]
@@ -44,7 +45,9 @@ static func description_for_tower(tower_type) -> String:
         Type.ThreeSpheres:
             return "asdf8"
         Type.Weight:
-            return "asdf9"
+            return "towers go brrr"
+        Type.Lightning:
+            return "Chain Ligntning BOOM"
         _:
             printerr("no description for tower: ", tower_type)
             return ""
@@ -53,7 +56,7 @@ static func color_for_tower(type):
     match type:
         Type.Cylinder, Type.Cube, Type.Prism:
             return ColorGroup.Red
-        Type.FlatSphere, Type.StretchedSphere:
+        Type.FlatSphere, Type.StretchedSphere, Type.Lightning:
             return ColorGroup.Blue
         Type.Stick, Type.Bomb:
             return ColorGroup.Yellow
@@ -83,6 +86,8 @@ static func scene_for_tower(tower_type) -> Resource:
             return preload("res://Tower/ThreeSpheresTower.tscn")
         Type.Weight:
             return preload("res://Tower/WeightTower.tscn")
+        Type.Lightning:
+            return preload("res://Tower/BlueTower/Lightning.tscn")
     
     printerr("No scene for tower type defined: ", tower_type)
     return null
