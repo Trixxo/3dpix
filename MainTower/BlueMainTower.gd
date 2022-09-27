@@ -50,9 +50,6 @@ func update_projectile_position():
         projectiles[i].update_position(i + 1)
 
 func instance_projectile():
-    # var all_enemies = get_tree().get_nodes_in_group("enemies")
-    # var enemies = ArrayExtra.filter_by_method(all_enemies, "can_attack")
-    # if enemies.size() > 0:
     var projectile = cube_projectile_scene.instance()
     projectile.damage = GlobalVars.projectile_damage / 2 + bonus_damage
     projectile.knockback_force = GlobalVars.knockback_force + bonus_knockback

@@ -16,6 +16,7 @@ var damage = GlobalVars.projectile_damage
 var knockback_force = GlobalVars.knockback_force
 var stun_duration = 0.0
 var bounce_count: int = 0 setget set_bounce_count
+const max_bounce_range := 10
 
 var target = null setget set_target
 
@@ -68,28 +69,30 @@ func hit_target():
 
     if bounce_count > 0:
         bounce_count -= 1
-        find_other_target()
+        bounce_to_other_target()
     else:
         queue_free()
 
-class SortMan:
-    static func enemy_sort_dist(a, b):
-        return a.transform.origin.length() < b.transform.origin.length()
+func enemy_sort_dist(a, b):
+    return a.global_transform.origin.distance_to(self.global_transform.origin) < b.global_transform.origin.distance_to(self.global_transform.origin)
 
-func find_other_target():
-    find_target(self.target)
+func bounce_to_other_target():
+    find_target(self.target, self.max_bounce_range)
 
 # `other_than_this_enemy`: optional parameter, if specified,
 # try to find a different target than that enemy
-func find_target(other_than_this_enemy = null):
+func find_target(other_than_this_enemy = null, max_range = INF):
     var enemies = get_tree().get_nodes_in_group("enemies")
     var enemies_sorted = ArrayExtra.filter_by_method(enemies, "can_attack")
-    enemies_sorted.sort_custom(SortMan, "enemy_sort_dist")
+    enemies_sorted.sort_custom(self, "enemy_sort_dist")
     if not enemies_sorted.size() > 0: return
     for enemy in enemies_sorted:
-        if enemy != other_than_this_enemy:
+        if enemy != other_than_this_enemy and enemy.global_transform.origin.distance_to(global_transform.origin) < max_range:
             self.target = enemy
             return
+    
+    # no suitable enemy was found, self-destruct
+    queue_free()
 
 func set_target(val):
     target = val

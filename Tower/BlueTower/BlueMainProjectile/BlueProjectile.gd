@@ -65,7 +65,7 @@ func spawn_bouncing_projectile():
 
     var cube = projectile_scene.instance()
     cube.max_speed = 50.0
-    cube.max_steer_force = 100
+    cube.max_steer_force = 350
     cube.damage = GlobalVars.projectile_damage / 2
     cube.knockback_force = GlobalVars.knockback_force
     cube.transform.origin = self.global_transform.origin
