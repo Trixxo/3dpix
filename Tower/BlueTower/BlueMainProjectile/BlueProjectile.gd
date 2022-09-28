@@ -2,7 +2,7 @@ extends Spatial
 
 onready var init_pos = global_transform[3]
 
-export var max_speed := 10.0
+export var max_speed := 5.0
 var speed := max_speed
 var max_range := 10.0
 
@@ -19,8 +19,8 @@ var elapsed = 0
 func _process(dt):
     elapsed += dt * speed
 
-    global_transform.origin.x = cos(elapsed) * max_range
-    global_transform.origin.z = sin(elapsed) * max_range
+    global_transform.origin.x = cos(PI/2 + PI * 0.5 * sin(elapsed)) * max_range
+    global_transform.origin.z = sin(PI/2 + PI * 0.5 * sin(elapsed)) * max_range
     
     var enemies = get_tree().get_nodes_in_group("enemies")
     if enemies.size() > 0:

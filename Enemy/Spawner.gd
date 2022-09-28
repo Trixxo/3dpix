@@ -81,15 +81,14 @@ func rand_point_on_bounds():
     var point = Vector2()
 
     var rand_hor = rand_range(bounds_top[0].x, bounds_top[1].x)
-    var rand_vert = rand_range(bounds_top[0].y, bounds_bottom[0].y)
-    var vert_sides = [bounds_top[0].y, bounds_bottom[0].y]
+    var rand_vert = rand_range(0, bounds_bottom[0].y)
 
     var which_dir = randi() % 2
     var which_side = randi() % 2
 
     if (which_dir == 0):
         point.x = rand_hor
-        point.y = sign(vert_sides[which_side]) * (abs(vert_sides[which_side]) + 1)
+        point.y = bounds_bottom[0].y
     else:
         point.y = rand_vert
         point.x = sign(bounds_top[which_side].x) * (abs(bounds_top[which_side].x) + 1)

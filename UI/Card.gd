@@ -6,7 +6,6 @@ var preview_node: Spatial
 var is_animating = false
 var tower_type
 onready var initial_y = transform.origin.y
-onready var camera = $'../../Camera'
 onready var initial_scale = scale
 
 signal click

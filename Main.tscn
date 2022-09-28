@@ -1,23 +1,21 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://HexGrid/HexGrid.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
 [ext_resource path="res://Experience/ExperienceSentinel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Enemy/Spawner.gd" type="Script" id=4]
 [ext_resource path="res://UI/UI.tscn" type="PackedScene" id=5]
-
-[sub_resource type="SpatialMaterial" id=10]
-resource_local_to_scene = true
-params_diffuse_mode = 4
-params_specular_mode = 3
-albedo_color = Color( 1, 0.847059, 0.721569, 1 )
-roughness = 0.0
+[ext_resource path="res://FloorMat.tres" type="Material" id=6]
 
 [sub_resource type="PlaneMesh" id=1]
-material = SubResource( 10 )
+material = ExtResource( 6 )
 
 [sub_resource type="BoxShape" id=3]
 extents = Vector3( 1, 0.2, 1 )
+
+[sub_resource type="CubeMesh" id=4]
+material = ExtResource( 6 )
+size = Vector3( 30, 30, 40 )
 
 [node name="Node2D" type="Spatial"]
 script = ExtResource( 2 )
@@ -29,13 +27,13 @@ shadow_enabled = true
 shadow_color = Color( 0.6, 0.6, 0.6, 1 )
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 30, 30 )
+transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 30, 40 )
 projection = 1
 fov = 50.0
 size = 50.0
 
-[node name="UI" parent="." instance=ExtResource( 5 )]
-transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 23.0206, 21.8415, 21.8415 )
+[node name="UI" parent="Camera" instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 23.0206, 0, -11.5379 )
 
 [node name="StaticBody" type="StaticBody" parent="."]
 transform = Transform( 60, 0, 0, 0, 60, 0, 0, 0, 60, 0, 0, 0 )
@@ -73,3 +71,15 @@ spot_range = 110.107
 
 [node name="Spatial2" parent="." instance=ExtResource( 3 )]
 transform = Transform( 0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 1, 0 )
+
+[node name="Mountain" type="MeshInstance" parent="."]
+transform = Transform( 0.713814, 0.69561, 0.081218, -0.66527, 0.637263, 0.388988, 0.218826, -0.331696, 0.917656, 0, -2.99852, -22.8889 )
+mesh = SubResource( 4 )
+
+[node name="Mountain3" type="MeshInstance" parent="."]
+transform = Transform( 0.626023, 0.760036, -0.174474, -0.54014, 0.584004, 0.60596, 0.562444, -0.285104, 0.776126, -23.5888, -10.9909, -22.7136 )
+mesh = SubResource( 4 )
+
+[node name="Mountain2" type="MeshInstance" parent="."]
+transform = Transform( 0.741479, 0.62488, 0.244407, -0.66527, 0.637263, 0.388988, 0.0873187, -0.451022, 0.888231, 14.5842, -9.16784, -30.686 )
+mesh = SubResource( 4 )

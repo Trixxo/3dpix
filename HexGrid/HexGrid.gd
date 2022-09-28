@@ -35,11 +35,19 @@ func hexes_in_range(N : int) -> Array:
     for q in range(-N, N + 1):
         for r in range(-N, N + 1):
             for s in range(-N, N + 1):
-                # q + r + s == 0: is part of the cube hexagonal grid
-                # q != 0 and r != 0 and s != 0: is not the tile in the absolute center
-                if (q + r + s == 0) and (q != 0 or r != 0 or s != 0):
+                if is_legal_position(q, r, s):
                     results.append(Vector2(q, r))
     return results
+
+func is_legal_position(q, r, s):
+    # q + r + s == 0: is part of the cube hexagonal grid
+    var is_hexagonal = (q + r + s == 0)
+    # q != 0 and r != 0 and s != 0: is not the tile in the absolute center
+    var is_not_center = (q != 0 or r != 0 or s != 0)
+    # don't build hex grid behind the main towers
+    var is_not_back = r >= 0
+    return is_hexagonal and is_not_center and is_not_back
+
 
 func create_hex_meshes_from_cells():
     for i in range(hex_map.size()):
@@ -60,7 +68,7 @@ func create_click_detection_hexagons(origin: Vector2):
     for neighbor_distance in neighbor_positions:
         var neighbor_position = origin + neighbor_distance
         # if hexagon already exists, do nothing for this position
-        if neighbor_position in hex_map: continue
+        if neighbor_position in hex_map or not is_legal_position(neighbor_position.x, neighbor_position.y, -neighbor_position.x-neighbor_position.y): continue
         
         # create a locked hexagon for this position
         hex_map.append(neighbor_position)
