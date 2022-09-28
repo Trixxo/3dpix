@@ -4,10 +4,10 @@
 [ext_resource path="res://MainTower/BlueMainTower.gd" type="Script" id=2]
 
 [sub_resource type="SphereMesh" id=1]
+material = ExtResource( 1 )
 radial_segments = 16
 rings = 8
 
 [node name="Cylinder" type="MeshInstance"]
 mesh = SubResource( 1 )
-material/0 = ExtResource( 1 )
 script = ExtResource( 2 )

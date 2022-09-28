@@ -7,5 +7,5 @@ resource_local_to_scene = true
 next_pass = ExtResource( 1 )
 params_diffuse_mode = 4
 params_specular_mode = 3
-albedo_color = Color( 1, 0.847059, 0.721569, 1 )
+albedo_color = Color( 0.615686, 0.552941, 0.341176, 1 )
 roughness = 0.0
