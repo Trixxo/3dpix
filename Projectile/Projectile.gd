@@ -85,7 +85,7 @@ func find_target(other_than_this_enemy = null, max_range = INF):
     var enemies = get_tree().get_nodes_in_group("enemies")
     var enemies_sorted = ArrayExtra.filter_by_method(enemies, "can_attack")
     enemies_sorted.sort_custom(self, "enemy_sort_dist")
-    if not enemies_sorted.size() > 0: return
+
     for enemy in enemies_sorted:
         if enemy != other_than_this_enemy and enemy.global_transform.origin.distance_to(global_transform.origin) < max_range:
             self.target = enemy
