@@ -8,6 +8,7 @@ extends MeshInstance
 var elapsed = 0
 var picked_up
 var vanished = false
+const vanish_after := 3.5
 var _timer
 var particle_vanish_scene = preload("ParticleVanish.tscn")
 
@@ -19,7 +20,7 @@ func _ready():
     
     _timer.connect("timeout", self, "vanish")
     _timer.one_shot = true
-    _timer.set_wait_time(0.5)
+    _timer.set_wait_time(vanish_after)
     _timer.start()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
