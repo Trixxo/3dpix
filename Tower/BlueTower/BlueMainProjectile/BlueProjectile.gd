@@ -48,7 +48,7 @@ func hit_target(target):
 
     # bouncing
     if self.bounce_count > 0:
-        spawn_bouncing_projectile()
+        spawn_bouncing_projectile(target)
 
     # enemy death
     if target.health <= 0:
@@ -57,21 +57,19 @@ func hit_target(target):
         get_tree().get_root().add_child(experience)
         target.queue_free()
 
-func spawn_bouncing_projectile():
-    var all_enemies = get_tree().get_nodes_in_group("enemies")
-    var enemies = ArrayExtra.filter_by_method(all_enemies, "can_attack")
-    if enemies.size() <= 0:
-        return
+func spawn_bouncing_projectile(just_hit_enemy):
+    var projectile = projectile_scene.instance()
+    projectile.max_speed = 50.0
+    projectile.max_steer_force = 350
+    projectile.damage = GlobalVars.projectile_damage / 2
+    projectile.knockback_force = GlobalVars.knockback_force
+    projectile.transform.origin = self.global_transform.origin
+    projectile.bounce_count = self.bounce_count - 1
 
-    var cube = projectile_scene.instance()
-    cube.max_speed = 50.0
-    cube.max_steer_force = 350
-    cube.damage = GlobalVars.projectile_damage / 2
-    cube.knockback_force = GlobalVars.knockback_force
-    cube.transform.origin = self.global_transform.origin
-    cube.bounce_count = self.bounce_count - 1
+    get_tree().get_root().add_child(projectile)
 
-    get_tree().get_root().add_child(cube)
+    # Tell the projectile to hit a different enemy than the one we just hit
+    projectile.find_target(just_hit_enemy, projectile.max_bounce_range)
 
 class SortMan:
     static func enemy_sort_dist(a, b):
