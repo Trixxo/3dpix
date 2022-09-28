@@ -26,11 +26,11 @@ func _unhandled_input(event: InputEvent):
         if not cards_visible: shuffle_cards()
         self.cards_visible = not cards_visible
     elif event.is_action_pressed("debug_change_speed"):
-        var direction = 1
+        var direction = 1.25
         if event.shift:
-            direction = -1
+            direction = 0.75
 
-        Engine.time_scale += 0.25 * direction
+        Engine.time_scale *= direction
 
 func _experience_changed():
     if (GlobalVars.experience >= experience_needed 
