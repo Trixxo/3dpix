@@ -27,7 +27,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
-shader_param/outline_color = Color( 0.964706, 0.470588, 0.780392, 1 )
+shader_param/outline_color = Color( 0.796078, 0.156863, 0.352941, 1 )
 shader_param/outline_width = 1.0
 
 [resource]
@@ -35,5 +35,5 @@ resource_local_to_scene = true
 next_pass = SubResource( 2 )
 params_diffuse_mode = 4
 params_specular_mode = 3
-albedo_color = Color( 1, 0.847059, 0.721569, 1 )
+albedo_color = Color( 1, 0.721569, 0.886275, 1 )
 roughness = 0.0

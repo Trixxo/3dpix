@@ -12,3 +12,6 @@ height = 1.0
 [node name="Cylinder" type="MeshInstance"]
 mesh = SubResource( 1 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
