@@ -2,7 +2,7 @@ extends Spatial
 
 var normal_enemy_scene = preload("res://Enemy/Enemy.tscn")
 var chonk_enemy_scene = preload("res://Enemy/EnemyChonk.tscn")
-var spawn_amount = 1.0
+var spawn_amount = 3.0
 var boss_wave_chance = 0.1
 var bounds_top
 var bounds_bottom
@@ -48,6 +48,9 @@ func check_next_wave():
         var pos = rand_point_on_bounds()
         add_child(enemy)
         enemy.global_transform[3] = Vector3(pos.x, 4, pos.y)
+
+        # wait a random amount of time before spawning the next enemy
+        yield(get_tree().create_timer(randf()), "timeout")
 
     spawn_amount += 4.0
     # start checking for the next wave
