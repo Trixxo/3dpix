@@ -1,10 +1,16 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Tower/GreenTower/GreenOutlineMat.tres" type="Material" id=1]
 [ext_resource path="res://Tower/GreenTower/PoisionMesh.gd" type="Script" id=2]
 
+[sub_resource type="SpatialMaterial" id=21]
+resource_local_to_scene = true
+params_diffuse_mode = 4
+params_specular_mode = 3
+albedo_color = Color( 0.721569, 1, 0.733333, 1 )
+roughness = 0.0
+
 [sub_resource type="CylinderMesh" id=1]
-material = ExtResource( 1 )
+material = SubResource( 21 )
 top_radius = 8.0
 bottom_radius = 8.0
 height = 0.1

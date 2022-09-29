@@ -2,10 +2,16 @@
 
 [ext_resource path="res://Tower/GreenTower/GreenMainProjectile/GreenProjectile.gd" type="Script" id=1]
 [ext_resource path="res://Experimental/OldHexGridHighlight.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Tower/GreenTower/GreenOutlineMat.tres" type="Material" id=3]
+
+[sub_resource type="SpatialMaterial" id=21]
+resource_local_to_scene = true
+params_diffuse_mode = 4
+params_specular_mode = 3
+albedo_color = Color( 0.721569, 1, 0.733333, 1 )
+roughness = 0.0
 
 [sub_resource type="CubeMesh" id=1]
-material = ExtResource( 3 )
+material = SubResource( 21 )
 size = Vector3( 1, 1, 1 )
 
 [sub_resource type="Curve" id=18]
@@ -23,7 +29,7 @@ gravity = Vector3( 0, 0, 0 )
 scale_curve = SubResource( 19 )
 
 [sub_resource type="SphereMesh" id=20]
-material = ExtResource( 3 )
+material = SubResource( 21 )
 radius = 0.6
 height = 1.2
 radial_segments = 9
