@@ -1,15 +1,10 @@
 extends Spatial
 
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
 var rand_dir
 var target = null
 var target_vec = null
 var original_move_speed = 0.5
-var lerped_speed
 var original_target_dist
 
 # Called when the node enters the scene tree for the first time.
@@ -28,10 +23,10 @@ func _process(dt):
 
 
     if is_instance_valid(target):
-        var dir = target_vec - global_transform.origin
-        lerped_speed = lerp(0.4 * original_move_speed, original_move_speed, dir.length())
-        var offset = dir.normalized() * dt * lerped_speed
-        global_transform.origin += GlobalVars.clamp(offset, dir.length())
+        var target_offset = target_vec - global_transform.origin
+        var move_progress = lerp(0.4 * original_move_speed, original_move_speed, target_offset.length())
+        var offset = target_offset.normalized() * dt * move_progress
+        global_transform.origin += GlobalVars.clamp(offset, target_offset.length())
 
         if (target_vec != Vector3(0, 1, 0) and global_transform.origin.distance_to(target.global_transform.origin) < 1.0):
             target_vec = Vector3(0, 1, 0)
