@@ -1,19 +1,16 @@
 extends Spatial
 
-
 var rand_dir
 var target = null
 var target_vec = null
-var original_move_speed = 0.5
-var original_target_dist
+var original_move_speed = 1.9
+var return_position
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
     add_to_group("experience_sentinels")
     rand_dir = [-1, 1][randi()%2] * (randf() + 0.2)
+    return_position = global_transform.origin
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(dt):
     if target == null:
         set_idle(true)
@@ -24,14 +21,14 @@ func _process(dt):
 
     if is_instance_valid(target):
         var target_offset = target_vec - global_transform.origin
-        var move_progress = lerp(0.4 * original_move_speed, original_move_speed, target_offset.length())
+        var move_progress = lerp(0.6 * original_move_speed, original_move_speed, target_offset.length())
         var offset = target_offset.normalized() * dt * move_progress
         global_transform.origin += GlobalVars.clamp(offset, target_offset.length())
 
-        if (target_vec != Vector3(0, 1, 0) and global_transform.origin.distance_to(target.global_transform.origin) < 1.0):
-            target_vec = Vector3(0, 1, 0)
+        if (target_vec != return_position and global_transform.origin.distance_to(target.global_transform.origin) < 1.0):
+            target_vec = return_position
 
-        if (target_vec == Vector3(0, 1, 0)):
+        if (target_vec == return_position):
             target.global_transform.origin = global_transform.origin
             if (global_transform.origin.distance_to(target_vec) < 0.1):
                 GlobalVars.experience += 1
@@ -70,5 +67,4 @@ func find_target():
     target = first_orb
     target.picked_up = true
     target_vec = first_orb.global_transform.origin
-    original_target_dist = target_vec.length()
     target.remove_from_group("experience_orbs")
