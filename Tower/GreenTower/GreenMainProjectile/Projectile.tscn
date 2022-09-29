@@ -1,8 +1,8 @@
 [gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Tower/YellowTower/YellowMainProjectile/YellowProjectile.gd" type="Script" id=1]
+[ext_resource path="res://Tower/GreenTower/GreenMainProjectile/GreenProjectile.gd" type="Script" id=1]
 [ext_resource path="res://Experimental/OldHexGridHighlight.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Tower/YellowTower/YellowTowerMat.tres" type="Material" id=3]
+[ext_resource path="res://Tower/GreenTower/GreenOutlineMat.tres" type="Material" id=3]
 
 [sub_resource type="CubeMesh" id=1]
 material = ExtResource( 3 )

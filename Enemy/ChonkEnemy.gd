@@ -6,7 +6,7 @@ extends MeshInstance
 # var b = "text"
 var target = Vector3(0, 4, 0)
 
-var health = GlobalVars.enemy_health * 2
+var health = GlobalVars.enemy_health setget set_health
 
 var effective_health = health
 
@@ -20,10 +20,14 @@ var sorted_enemy_group
 
 var size := 2
 
+var poison_duration = 0
+
 export var move_speed := 1
 
 var is_stunned := false
 var stun_timer: Timer
+
+var experience_scene = preload("res://Experience/Experience.tscn")
 
 func _ready():
     stun_timer = Timer.new()
@@ -68,3 +72,14 @@ func _process(dt):
 
     if not is_stunned:
         global_transform = global_transform.translated((target - transform[3]).normalized() * move_speed * dt)
+
+func set_health(val: int):
+    health = val
+    if health < effective_health:
+        self.effective_health = health
+
+    if health <= 0:
+        var experience = experience_scene.instance()
+        experience.transform = transform
+        get_tree().get_root().add_child(experience)
+        queue_free()
