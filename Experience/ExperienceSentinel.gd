@@ -8,7 +8,7 @@ extends Spatial
 var rand_dir
 var target = null
 var target_vec = null
-var original_move_speed = 3.0
+var original_move_speed = 0.5
 var lerped_speed
 var original_target_dist
 

@@ -8,7 +8,7 @@ extends MeshInstance
 var elapsed = 0
 var picked_up
 var vanished = false
-const vanish_after := 3.5
+const vanish_after := 10.0
 var _timer
 var particle_vanish_scene = preload("ParticleVanish.tscn")
 
