@@ -1,13 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://UI/Card.tscn" type="PackedScene" id=1]
 [ext_resource path="res://UI/UI.gd" type="Script" id=2]
-[ext_resource path="res://Fonts/Blomberg-8MKKZ.otf" type="DynamicFontData" id=3]
-
-[sub_resource type="DynamicFont" id=1]
-size = 32
-use_filter = true
-font_data = ExtResource( 3 )
 
 [node name="UI" type="Spatial"]
 script = ExtResource( 2 )
@@ -15,38 +9,8 @@ script = ExtResource( 2 )
 [node name="Card3" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14.495, 0 )
 
-[node name="Label" type="Label3D" parent="Card3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.57978, 2.43607 )
-pixel_size = 0.05
-billboard = 1
-modulate = Color( 0, 0, 0, 1 )
-text = "+1 BULLET"
-font = SubResource( 1 )
-autowrap = true
-width = 150.0
-
 [node name="Card2" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.215, 0 )
 
-[node name="Label" type="Label3D" parent="Card2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.22477, 2.43607 )
-pixel_size = 0.05
-billboard = 1
-modulate = Color( 0, 0, 0, 1 )
-text = "+1 BULLET"
-font = SubResource( 1 )
-autowrap = true
-width = 150.0
-
 [node name="Card" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -15.138, 0 )
-
-[node name="Label" type="Label3D" parent="Card"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.45232, 2.43607 )
-pixel_size = 0.05
-billboard = 1
-modulate = Color( 0, 0, 0, 1 )
-text = "+1 BULLET"
-font = SubResource( 1 )
-autowrap = true
-width = 150.0
