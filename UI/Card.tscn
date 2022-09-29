@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://UI/Card.gd" type="Script" id=2]
 [ext_resource path="res://UI/CardMat.tres" type="Material" id=3]
@@ -6,9 +6,6 @@
 [sub_resource type="CubeMesh" id=5]
 material = ExtResource( 3 )
 size = Vector3( 8, 12, 0.5 )
-
-[sub_resource type="BitmapFont" id=8]
-height = 20.0
 
 [sub_resource type="BoxShape" id=4]
 extents = Vector3( 4, 6, 0.5 )
@@ -61,14 +58,6 @@ tracks/1/keys = {
 cast_shadow = 0
 mesh = SubResource( 5 )
 script = ExtResource( 2 )
-
-[node name="Label3D" type="Label3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.4986, 1.35137 )
-pixel_size = 20.0
-billboard = 1
-modulate = Color( 0, 0, 0, 1 )
-text = "ASDFLASDKJFASLDKFJALDSKJFLKDSAFJ"
-font = SubResource( 8 )
 
 [node name="Area" type="Area" parent="."]
 collision_layer = 2
