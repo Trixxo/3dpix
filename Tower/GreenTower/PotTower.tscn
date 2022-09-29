@@ -5,13 +5,15 @@
 
 [sub_resource type="SphereMesh" id=1]
 material = ExtResource( 1 )
+radius = 0.7
+height = 1.4
 radial_segments = 16
 rings = 8
 
 [sub_resource type="CylinderMesh" id=2]
 material = ExtResource( 1 )
-top_radius = 0.4
-bottom_radius = 0.4
+top_radius = 0.2
+bottom_radius = 0.2
 height = 1.0
 radial_segments = 16
 
@@ -31,5 +33,5 @@ __meta__ = {
 mesh = SubResource( 1 )
 
 [node name="MeshInstance2" type="MeshInstance" parent="MeshInstance"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
 mesh = SubResource( 2 )
