@@ -79,11 +79,11 @@ anims/Appear = SubResource( 6 )
 anims/RESET = SubResource( 7 )
 
 [node name="Label" type="Label3D" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.57978, 2.43607 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.04074, 2.43607 )
 pixel_size = 0.05
 billboard = 1
 modulate = Color( 0, 0, 0, 1 )
-text = "+1 BULLET"
+text = "Card description"
 font = SubResource( 8 )
 autowrap = true
 width = 150.0

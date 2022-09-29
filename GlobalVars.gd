@@ -13,6 +13,8 @@ var main_tower_range := 50
 # experience related
 var experience := 0 setget set_experience
 var experience_sentinels := 1
+# experience needed for the next card
+var experience_needed := 3
 
 var red_towers = 0
 var blue_towers = 0
