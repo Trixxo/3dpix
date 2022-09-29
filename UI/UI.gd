@@ -42,6 +42,7 @@ func _experience_changed():
 
 func _tower_built(_all, _new):
     GlobalVars.experience = GlobalVars.experience - experience_needed
+    experience_needed += 1
 
 func _card_clicked(card: MeshInstance):
     if grid.new_tower_type != null: return
