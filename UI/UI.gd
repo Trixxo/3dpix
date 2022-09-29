@@ -1,6 +1,5 @@
 extends Spatial
 
-var experience_needed := 3
 var cards_visible := false setget set_cards_visible
 var should_cards_be_visible := false
 var is_animating = false
@@ -19,7 +18,7 @@ func _ready():
     # (the "hexagons" group is slow to change)
     yield(get_tree().create_timer(0.5), "timeout")
     # show cards for picking an initial tower
-    GlobalVars.experience += experience_needed
+    GlobalVars.experience += GlobalVars.experience_needed
 
 func _unhandled_input(event: InputEvent):
     if event.is_action_released("debug_show_cards"):
@@ -33,7 +32,7 @@ func _unhandled_input(event: InputEvent):
         Engine.time_scale *= direction
 
 func _experience_changed():
-    if (GlobalVars.experience >= experience_needed 
+    if (GlobalVars.experience >= GlobalVars.experience_needed 
         and not cards_visible 
         and grid.new_tower_type == null):
 
@@ -41,8 +40,8 @@ func _experience_changed():
         self.cards_visible = true
 
 func _tower_built(_all, _new):
-    GlobalVars.experience = GlobalVars.experience - experience_needed
-    experience_needed += 1
+    GlobalVars.experience = GlobalVars.experience - GlobalVars.experience_needed
+    GlobalVars.experience_needed += 1
 
 func _card_clicked(card: MeshInstance):
     if grid.new_tower_type != null: return
