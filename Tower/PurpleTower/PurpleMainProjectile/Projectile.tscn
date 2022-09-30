@@ -1,18 +1,21 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://Tower/PurpleTower/GreenMainProjectile/PurpleProjectile.gd" type="Script" id=1]
+[ext_resource path="res://Tower/PurpleTower/PurpleMainProjectile/PurpleProjectile.gd" type="Script" id=1]
 [ext_resource path="res://Experimental/OldHexGridHighlight.tscn" type="PackedScene" id=2]
 
-[sub_resource type="SpatialMaterial" id=21]
+[sub_resource type="SpatialMaterial" id=23]
 resource_local_to_scene = true
 params_diffuse_mode = 4
 params_specular_mode = 3
 albedo_color = Color( 0.721569, 0.72549, 1, 1 )
 roughness = 0.0
 
-[sub_resource type="CubeMesh" id=1]
-material = SubResource( 21 )
-size = Vector3( 1, 1, 1 )
+[sub_resource type="SphereMesh" id=24]
+material = SubResource( 23 )
+radius = 0.4
+height = 0.8
+radial_segments = 8
+rings = 4
 
 [sub_resource type="Curve" id=18]
 _data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0.381818 ), 0.0, 0.0, 0, 0 ]
@@ -44,7 +47,7 @@ rings = 4
 
 [node name="Cube" type="MeshInstance"]
 cast_shadow = 0
-mesh = SubResource( 1 )
+mesh = SubResource( 24 )
 script = ExtResource( 1 )
 
 [node name="Spatial" parent="." instance=ExtResource( 2 )]

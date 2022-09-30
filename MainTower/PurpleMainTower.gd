@@ -1,7 +1,7 @@
 extends Spatial
 
 
-var cube_projectile_scene = preload("res://Tower/PurpleTower/GreenMainProjectile/Projectile.tscn")
+var cube_projectile_scene = preload("res://Tower/PurpleTower/PurpleMainProjectile/Projectile.tscn")
 var experience_sentinel_scene = preload("res://Experience/ExperienceSentinel.tscn")
 var _timer
 var attack_speed = GlobalVars.attack_speed
@@ -45,8 +45,12 @@ func _global_vars_updated(all_types, _new_type):
         match Towers.color_for_tower(type):
             Towers.ColorGroup.Purple:
                 purple_towers += 1
+                
+        match type:
+            Towers.Type.Halo:
+                bonus_attack_speed += 0.5
     
-    _timer.set_wait_time(1.0 / ((GlobalVars.attack_speed * 10.0) + bonus_attack_speed))
+    _timer.set_wait_time(1.0 / ((GlobalVars.attack_speed * 5.0) + bonus_attack_speed))
 
 func idle_movement(dt):
     rotation.y += 0.3 * dt
@@ -59,7 +63,7 @@ func instance_cube():
     if enemies.size() > 0:
         cube = cube_projectile_scene.instance()
         cube.target_dir = -transform.basis.z
-        cube.transform = cube.transform.translated(cube.target_dir.normalized() * .5)
+        cube.transform = cube.transform.translated(cube.target_dir.normalized() * 2.0)
         cube.transform.origin.y = height_offset
 
         get_tree().get_root().add_child(cube)

@@ -1,11 +1,17 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Projectile/Projectile.gd" type="Script" id=1]
 [ext_resource path="res://Experimental/OldHexGridHighlight.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Tower/RedTower/RedTowerMat.tres" type="Material" id=3]
+
+[sub_resource type="SpatialMaterial" id=21]
+resource_local_to_scene = true
+params_diffuse_mode = 4
+params_specular_mode = 3
+albedo_color = Color( 1, 0.721569, 0.886275, 1 )
+roughness = 0.0
 
 [sub_resource type="CubeMesh" id=1]
-material = ExtResource( 3 )
+material = SubResource( 21 )
 size = Vector3( 0.5, 0.5, 0.5 )
 
 [sub_resource type="Curve" id=18]
@@ -22,8 +28,15 @@ spread = 0.0
 gravity = Vector3( 0, 0, 0 )
 scale_curve = SubResource( 19 )
 
+[sub_resource type="SpatialMaterial" id=22]
+resource_local_to_scene = true
+params_diffuse_mode = 4
+params_specular_mode = 3
+albedo_color = Color( 1, 0.721569, 0.886275, 1 )
+roughness = 0.0
+
 [sub_resource type="SphereMesh" id=20]
-material = ExtResource( 3 )
+material = SubResource( 22 )
 radius = 0.3
 height = 0.6
 radial_segments = 9
@@ -31,7 +44,6 @@ rings = 4
 
 [node name="Cube" type="MeshInstance"]
 mesh = SubResource( 1 )
-material/0 = null
 script = ExtResource( 1 )
 
 [node name="Spatial" parent="." instance=ExtResource( 2 )]
