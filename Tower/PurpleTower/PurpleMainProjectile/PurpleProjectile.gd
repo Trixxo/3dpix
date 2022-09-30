@@ -4,6 +4,8 @@ export var max_speed := 100.0
 var speed_factor := 0.6
 var minimum_speed := 0.9 * max_speed
 var speed := max_speed * speed_factor
+var knockback_force := 0.0
+var stun_duration := 0.0
 
 var damage = GlobalVars.projectile_damage
 
@@ -19,4 +21,4 @@ func _process(dt):
 
     for enemy in get_tree().get_nodes_in_group("enemies"):
         if (enemy.global_transform.origin - global_transform.origin).length() < 1:
-            enemy.health -= damage * 5.0
+            enemy.hit(self, Towers.ColorGroup.Purple, damage, knockback_force, stun_duration)
