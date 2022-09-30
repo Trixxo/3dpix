@@ -46,26 +46,7 @@ func _process(dt):
         find_target()
 
 func hit_target():
-    target.play_hit_animation(target.global_transform.origin - global_transform.origin)
-    target.health -= damage
-    var sphere_explosion = sphere_expolsion_scene.instance()
-    sphere_explosion.transform.origin = target.global_transform.origin
-    get_tree().get_root().add_child(sphere_explosion)
-    sphere_explosion.get_node("Particles").emitting = true
-    sphere_explosion.get_node("Particles2").emitting = true
-    var vec_to_target = target.global_transform.origin - global_transform.origin
-    sphere_explosion.rotate_object_local(Vector3(0, 1, 0), atan2(vec_to_target.z, -vec_to_target.x))
-
-    var knockback_dir = Vector3(vec_to_target.x, 0, vec_to_target.z).normalized()
-    target.global_transform.origin += (knockback_dir * knockback_force)
-    if stun_duration >= 0.0:
-        target.stun(stun_duration)
-
-    if target.health <= 0:
-        var experience = experience_scene.instance()
-        experience.transform = target.transform
-        get_tree().get_root().add_child(experience)
-        target.queue_free()
+    target.hit(self, Towers.ColorGroup.Purple, damage, knockback_force, stun_duration)
 
     queue_free()
 

@@ -28,6 +28,7 @@ var is_stunned := false
 var stun_timer: Timer
 
 var experience_scene = preload("res://Experience/Experience.tscn")
+var sphere_expolsion_scene = preload("res://Projectile/ParticleDamage.tscn")
 
 func _ready():
     stun_timer = Timer.new()
@@ -53,6 +54,25 @@ func stun_finished():
 func can_attack() -> bool:
     return (effective_health > 0
         and global_transform.origin.distance_to(Vector3(0, 0, 0)) <= GlobalVars.main_tower_range)
+    
+func hit(projectile, type, damage, knockback_force = 0, stun_duration = 0):
+    play_hit_animation(global_transform.origin - projectile.global_transform.origin)
+    var sphere_explosion = sphere_expolsion_scene.instance()
+    sphere_explosion.transform.origin = global_transform.origin
+    get_tree().get_root().add_child(sphere_explosion)
+    sphere_explosion.get_node("Particles").emitting = true
+    sphere_explosion.get_node("Particles2").emitting = true
+    var vec_to_target = global_transform.origin - projectile.global_transform.origin
+    sphere_explosion.rotate_object_local(Vector3(0, 1, 0), atan2(vec_to_target.z, -vec_to_target.x))
+
+    if knockback_force != 0:
+        var knockback_dir = Vector3(vec_to_target.x, 0, vec_to_target.z).normalized()
+        global_transform.origin += (knockback_dir * knockback_force)
+    if stun_duration >= 0.0:
+        stun(stun_duration)
+
+    self.health -= damage
+
 
 func _process(dt):
     transform.basis = Basis().scaled(base_scale)
