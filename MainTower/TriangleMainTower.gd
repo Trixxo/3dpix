@@ -8,6 +8,7 @@ var origin_transform
 var interpolation_factor = 0
 var height_offset = 0
 var original_scale
+var projectile_speed_factor = 1.0
 
 var bonus_damage := 0.0
 var bonus_knockback := 0.0
@@ -57,6 +58,8 @@ func _global_vars_updated(all_types, _new_type):
                 bonus_knockback += 1.0
             Towers.Type.Prism:
                 bonus_stun_duration += 0.5
+            Towers.Type.TwoTriangles:
+                projectile_speed_factor += 10.0
 
     _timer.set_wait_time(1.0 / (GlobalVars.attack_speed + bonus_attack_speed))
 
@@ -68,7 +71,7 @@ func instance_cube():
         var target_dir = (target_enemy.global_transform.origin - global_transform.origin).normalized()
 
         var cube = cube_projectile_scene.instance()
-        cube.max_speed = 150.0
+        cube.speed_factor *= projectile_speed_factor
         cube.damage = GlobalVars.projectile_damage / 2 + bonus_damage
         cube.knockback_force = GlobalVars.knockback_force + bonus_knockback
         cube.stun_duration = bonus_stun_duration
