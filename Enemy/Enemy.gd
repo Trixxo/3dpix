@@ -73,7 +73,7 @@ func _process(dt):
     if not is_stunned:
         global_transform = global_transform.translated((target - transform[3]).normalized() * move_speed * dt)
 
-func set_health(val: int):
+func set_health(val: float):
     health = val
     if health < effective_health:
         self.effective_health = health
