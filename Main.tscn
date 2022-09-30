@@ -71,7 +71,7 @@ light_color = Color( 0.0901961, 0.701961, 0.156863, 1 )
 spot_range = 110.107
 
 [node name="ExperienceContainer" parent="." instance=ExtResource( 8 )]
-transform = Transform( 1, 0, 0, 0, 0.451267, -0.892389, 0, 0.892389, 0.451267, 0, 10.744, -7.11958 )
+transform = Transform( 1, 0, 0, 0, 0.451267, -0.892389, 0, 0.892389, 0.451267, 9.07245, 10.744, -7.11958 )
 script = ExtResource( 9 )
 
 [node name="Mountain" type="MeshInstance" parent="."]
