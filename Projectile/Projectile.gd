@@ -8,7 +8,6 @@ var minimum_speed := 0.9 * max_speed
 var speed := max_speed * speed_factor
 
 var vel := Vector3.ZERO
-var acc := Vector3.ZERO
 var max_steer_force := 50
 var steer_force := 0.2
 
@@ -27,8 +26,7 @@ var experience_scene = preload("res://Experience/Experience.tscn")
 func _process(dt):
     steer_force = pow(speed_factor, 2) * max_steer_force
     speed = update_speed()
-    acc += seek()
-    vel += acc * dt
+    seek()
     vel = GlobalVars.clamp(vel, speed)
         
     if is_instance_valid(target):
@@ -98,12 +96,9 @@ func set_target(val):
     target = val
     target.effective_health -= damage
 
-func seek() -> Vector3:
-    var steer = Vector3.ZERO
+func seek():
     if is_instance_valid(target):
-        var desired = (target.global_transform.origin - global_transform.origin).normalized() * speed
-        steer = (desired - vel).normalized() * steer_force
-    return steer
+        vel = (target.global_transform.origin - global_transform.origin).normalized() * speed
 
 func update_speed() -> float:
     if is_instance_valid(target) and global_transform[3].length() < self.current_max_distance(target.global_transform[3]):
